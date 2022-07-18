@@ -7,12 +7,10 @@
 " About:    Collection of vim default options for humans.
 " -----------------------------------------------------------------------------
 
-" Vi isn't for humans.
 if &compatible
   finish
 endif
 
-" Don't use vim's default options.
 if !has('nvim')
   let skip_defaults_vim = 1
 endif
@@ -96,6 +94,9 @@ set spell spelllang=en
   else
     set signcolumn=yes
   endif
+
+  " Line numbers.
+  set number norelativenumber numberwidth=5
 
   " Lines position (disable for syntax performance).
   set cursorline nocursorcolumn
@@ -186,61 +187,24 @@ set spell spelllang=en
   set ttyfast
 " }}}
 " -----------------------------------------------------------------------------
+" SECTION: Commands.
+" -----------------------------------------------------------------------------
+command! -nargs=0 -range MaximizerToggle call maximizer#toggle()
+" -----------------------------------------------------------------------------
+" SECTION: Autocommands.
+" -----------------------------------------------------------------------------
+if has('nvim')
+  autocmd TextYankPost * silent! lua vim.highlight.on_yank {timeout=1000}
+endif
+
+autocmd WinLeave * call maximizer#restore()
+" -----------------------------------------------------------------------------
 " SECTION: Mappings.
 " -----------------------------------------------------------------------------
-" Move previous/left with buffers.
 nnoremap <silent> gB <Cmd>bprev<CR>
 nnoremap <silent> <S-PageUp> <Cmd>bprev<CR>
 inoremap <silent> <S-PageUp> <Cmd>bprev<CR>
 
-" Move next/right with buffers.
 nnoremap <silent> gb <Cmd>bnext<CR>
 nnoremap <silent> <S-PageDown> <Cmd>bnext<CR>
 inoremap <silent> <S-PageDown> <Cmd>bnext<CR>
-" -----------------------------------------------------------------------------
-" SECTION: Autocmds.
-" -----------------------------------------------------------------------------
-" Highlight yanked text.
-if has('nvim')
-  autocmd TextYankPost * silent! lua vim.highlight.on_yank {timeout=1000}
-endif
-" -----------------------------------------------------------------------------
-" SECTION: Plugins.
-" -----------------------------------------------------------------------------
-" numbers.vim: {{{
-  if !exists("g:loaded_numbers") && v:version > 703
-    if !exists('g:numbers_exclude_filetypes')
-      let g:numbers_exclude_filetypes = [ 'nerdtree', 'netrw', 'startify' ]
-    endif
-
-    if !exists('g:numbers_exclude_buftypes')
-      let g:numbers_exclude_buftypes = [ 'help', 'nofile', 'quickfix' ]
-    endif
-
-    let g:numbers_original = 0
-    if &g:number == 1
-      let g:numbers_original = 1
-    endif
-
-    let g:numbers_mode = 0
-    let g:numbers_center = 1
-
-    set number relativenumber numberwidth=5
-
-    autocmd BufNewFile * call numbers#reset()
-    autocmd BufReadPost * call numbers#reset()
-    autocmd InsertEnter * call numbers#set()
-    autocmd InsertLeave * call numbers#relativeOn()
-    autocmd WinEnter * call numbers#relativeOn()
-    autocmd WinLeave * call numbers#set()
-    autocmd FocusLost * call numbers#uncenter()
-    autocmd FocusGained * call numbers#center()
-  endif
-" }}}
-" maximizer.vim: {{{
-  if !exists('g:load_maximizer') && v:version > 700
-    command! -nargs=0 -range MaximizerToggle call maximizer#toggle()
-
-    autocmd WinLeave * call maximizer#restore()
-  endif
-" }}}
