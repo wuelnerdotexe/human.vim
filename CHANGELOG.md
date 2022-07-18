@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.0] - 2022-07-18
+
+### Added
+
+- **Dark mode** is on by default because **humans hate light backgrounds**.
+- **Minimalistic** and **modernized** versions of the [numbers.vim](https://github.com/myusuf3/numbers.vim) and [vim-maximized](https://github.com/szw/vim-maximizer) plugins are added.
+
 ## [1.0.0] - 2022-07-16
 
 - Initial release

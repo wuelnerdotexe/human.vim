@@ -1,11 +1,16 @@
 " vim: fileencoding=utf-8 tabstop=2 shiftwidth=2 foldlevel=0 foldmethod=marker:
 " -----------------------------------------------------------------------------
-" Name:     Human.vim
+" Name:     human.vim
 " Author:   Wuelner Martínez <wuelner.martinez@outlook.com>
-" URL:      https://github.com/wuelnerdotexe/dotfiles
+" URL:      https://github.com/wuelnerdotexe/human.vim
 " License:  MIT (C) Wuelner Martínez.
-" About:    Default vim options collection for humans.
+" About:    Collection of vim default options for humans.
 " -----------------------------------------------------------------------------
+
+" Vi isn't for humans.
+if &compatible
+  finish
+endif
 
 " Don't use vim's default options.
 if !has('nvim')
@@ -68,7 +73,10 @@ set spell spelllang=en
   set emoji
 
   " Formatting.
-  set nojoinspaces formatoptions=tcjnp
+  set nojoinspaces
+  if v:version > 703 || v:version == 703 && has("patch541")
+    set formatoptions=tcjnp
+  endif
 " }}}
 " User interface: {{{
   " Titlebar.
@@ -80,7 +88,7 @@ set spell spelllang=en
   endif
 
   " Colors.
-  set t_Co=256 termguicolors
+  set t_Co=256 termguicolors background=dark
 
   " Signcolumn display.
   if has('nvim')
@@ -89,18 +97,15 @@ set spell spelllang=en
     set signcolumn=yes
   endif
 
-  " Line numbers (disable for buftypes consistency).
-  set nonumber norelativenumber
-
   " Lines position (disable for syntax performance).
-  set nocursorline nocursorcolumn
+  set cursorline nocursorcolumn
 
   " Last line.
   set history=50
   set cmdheight=1
   set showcmd
-  set noshowmode
-  set noruler
+  set showmode
+  set ruler
   set confirm
   set shortmess=mrxtTI
 
@@ -170,9 +175,7 @@ set spell spelllang=en
   set eadirection=both
 
   " Text editing.
-  set clipboard+=unnamedplus
-  set backspace=indent,eol,start
-  set nostartofline
+  set clipboard+=unnamedplus backspace=indent,eol,start nostartofline
 
   " Performance.
   if !has('nvim')
@@ -201,3 +204,43 @@ inoremap <silent> <S-PageDown> <Cmd>bnext<CR>
 if has('nvim')
   autocmd TextYankPost * silent! lua vim.highlight.on_yank {timeout=1000}
 endif
+" -----------------------------------------------------------------------------
+" SECTION: Plugins.
+" -----------------------------------------------------------------------------
+" numbers.vim: {{{
+  if !exists("g:loaded_numbers") && v:version > 703
+    if !exists('g:numbers_exclude_filetypes')
+      let g:numbers_exclude_filetypes = [ 'nerdtree', 'netrw', 'startify' ]
+    endif
+
+    if !exists('g:numbers_exclude_buftypes')
+      let g:numbers_exclude_buftypes = [ 'help', 'nofile', 'quickfix' ]
+    endif
+
+    let g:numbers_original = 0
+    if &g:number == 1
+      let g:numbers_original = 1
+    endif
+
+    let g:numbers_mode = 0
+    let g:numbers_center = 1
+
+    set number relativenumber numberwidth=5
+
+    autocmd BufNewFile * call numbers#reset()
+    autocmd BufReadPost * call numbers#reset()
+    autocmd InsertEnter * call numbers#set()
+    autocmd InsertLeave * call numbers#relativeOn()
+    autocmd WinEnter * call numbers#relativeOn()
+    autocmd WinLeave * call numbers#set()
+    autocmd FocusLost * call numbers#uncenter()
+    autocmd FocusGained * call numbers#center()
+  endif
+" }}}
+" maximizer.vim: {{{
+  if !exists('g:load_maximizer') && v:version > 700
+    command! -nargs=0 -range MaximizerToggle call maximizer#toggle()
+
+    autocmd WinLeave * call maximizer#restore()
+  endif
+" }}}
