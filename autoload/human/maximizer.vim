@@ -7,16 +7,16 @@
 " About:    Maximizes and restores the current window.
 " -----------------------------------------------------------------------------
 
-function maximizer#enable()
+function! human#maximizer#enable() abort
   let t:maximizer_sizes = { 'before': winrestcmd() }
-  vert resize | resize
+  resize | vert resize
   let t:maximizer_sizes.after = winrestcmd()
   if &buftype != 'terminal'
     normal! ze
   endif
 endfunction
 
-function maximizer#restore()
+function! human#maximizer#restore() abort
   if exists('t:maximizer_sizes')
     silent! execute t:maximizer_sizes.before
     if t:maximizer_sizes.before != winrestcmd()
@@ -29,11 +29,11 @@ function maximizer#restore()
   endif
 endfunction
 
-function maximizer#toggle()
+function! human#maximizer#toggle() abort
   if exists('t:maximizer_sizes') &&
         \ t:maximizer_sizes.after == winrestcmd()
-    call maximizer#restore()
+    call human#maximizer#restore()
   elseif winnr('$') > 1
-    call maximizer#enable()
+    call human#maximizer#enable()
   endif
 endfunction

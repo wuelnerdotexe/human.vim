@@ -98,7 +98,7 @@ set spell spelllang=en
   " Line numbers.
   set number norelativenumber numberwidth=5
 
-  " Lines position (disable for syntax performance).
+  " Lines position.
   set cursorline nocursorcolumn
 
   " Last line.
@@ -187,17 +187,17 @@ set spell spelllang=en
   set ttyfast
 " }}}
 " -----------------------------------------------------------------------------
-" SECTION: Commands.
-" -----------------------------------------------------------------------------
-command! -nargs=0 -range MaximizerToggle call maximizer#toggle()
-" -----------------------------------------------------------------------------
 " SECTION: Autocommands.
 " -----------------------------------------------------------------------------
 if has('nvim')
   autocmd TextYankPost * silent! lua vim.highlight.on_yank {timeout=1000}
 endif
 
-autocmd WinLeave * call maximizer#restore()
+if has('nvim')
+  autocmd TermOpen * setl scl=no nospell nonu nornu noru nocul lcs-=trail
+else
+  autocmd TerminalOpen * setl scl=no nospell nonu nornu noru nocul lcs-=trail
+endif
 " -----------------------------------------------------------------------------
 " SECTION: Mappings.
 " -----------------------------------------------------------------------------
@@ -208,3 +208,5 @@ inoremap <silent> <S-PageUp> <Cmd>bprev<CR>
 nnoremap <silent> gb <Cmd>bnext<CR>
 nnoremap <silent> <S-PageDown> <Cmd>bnext<CR>
 inoremap <silent> <S-PageDown> <Cmd>bnext<CR>
+
+tnoremap <Esc> <C-\><C-n>
