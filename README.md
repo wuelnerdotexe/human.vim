@@ -68,6 +68,7 @@ Which you can map to your favorite map, for example:
 
 ```vim
 nmap <leader>mt <Plug>(MaximizerToggle)
+nmap! <leader>mt <Plug>(MaximizerToggle)
 ```
 
 When the current window is not in maximized state, Maximizer saves dimensions and positions of all windows in the current tab, and then it performs maximization of the active window. The second time the command is invoked, Maximizer restores all windows to the previously saved positions.

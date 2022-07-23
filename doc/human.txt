@@ -53,6 +53,7 @@ Maximizer has only one command:
 Which you can map to your favorite map, for example:
 
 `nmap <leader>mt <Plug>(MaximizerToggle)`
+`nmap! <leader>mt <Plug>(MaximizerToggle)`
 
 When the current window is not in maximized state, Maximizer saves dimensions
 and positions of all windows in the current tab, and then it performs
