@@ -99,8 +99,7 @@ endif
 set nonumber relativenumber numberwidth=2
 
 " Lines position.
-set cursorline nocursorcolumn colorcolumn=80
-autocmd FileType help setlocal colorcolumn=+1
+set cursorline nocursorcolumn
 
 " Last line.
 set history=50
@@ -223,6 +222,7 @@ tnoremap <Esc> <C-\><C-n>
 " -----------------------------------------------------------------------------
 " SECTION: Plugins.
 " -----------------------------------------------------------------------------
+" Maximizer.vim: {{{
 " The command for Maximizer is created.
 command -nargs=0 MaximizerToggle call human#maximizer#toggle()
 
@@ -232,3 +232,4 @@ noremap! <Plug>(MaximizerToggle) <Cmd>MaximizerToggle<CR>
 
 " When changing windows, it restores if it has been maximized.
 autocmd WinLeave * call human#maximizer#restore()
+" }}}
