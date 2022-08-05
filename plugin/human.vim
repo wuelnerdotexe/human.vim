@@ -55,8 +55,7 @@ set concealcursor=c conceallevel=2
 set autoindent shiftround breakindent
 
 " Wrapping.
-set nowrap
-set display=lastline
+set nowrap display=lastline
 if has('nvim')
   set display+=msgsep
 endif
@@ -75,6 +74,10 @@ set nojoinspaces
 if v:version > 703 || v:version == 703 && has("patch541")
   set formatoptions=tcjnp
 endif
+
+" Languages.
+autocmd FileType json setlocal filetype=jsonc
+autocmd FileType css,scss,sass,less setlocal iskeyword+=-,@-@
 " }}}
 " User interface: {{{
 " Titlebar.
@@ -152,8 +155,7 @@ set hlsearch
 if has('reltime')
   set incsearch
 endif
-set ignorecase
-set nosmartcase
+set ignorecase nosmartcase
 
 " Yanked text.
 if has('nvim')
@@ -195,9 +197,7 @@ set clipboard+=unnamedplus backspace=indent,eol,start nostartofline
 if !has('nvim')
   set updatetime=100
 endif
-set redrawtime=1500
-set nolazyredraw
-set ttyfast
+set redrawtime=1500 nolazyredraw ttyfast
 " }}}
 " -----------------------------------------------------------------------------
 " SECTION: Mappings.
