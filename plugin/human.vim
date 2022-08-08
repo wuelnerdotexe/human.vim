@@ -55,7 +55,7 @@ set concealcursor=c conceallevel=2
 set autoindent shiftround breakindent
 
 " Wrapping.
-set nowrap display=lastline
+set wrap textwidth=80 display=lastline
 if has('nvim')
   set display+=msgsep
 endif
