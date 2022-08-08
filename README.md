@@ -75,7 +75,7 @@ When the current window is not in maximized state, Maximizer saves dimensions an
 
 ## Maintainer
 
-> Hola 👋, soy **[Wuelner](https://linktr.ee/wuelnerdotexe)**, un **software developer de Guatemala**, apasionado por crear soluciones minimalistas utilizando fundamentos sólidos enfocados en **"cómo deben ser las cosas"**.
+> Hi 👋, I'm **[Wuelner](https://linktr.ee/wuelnerdotexe)**, a **software developer from Guatemala**, passionate about creating minimalist solutions using solid fundamentals focused on **"how things should be"**.
 
 ## Credits
 
@@ -85,4 +85,4 @@ When the current window is not in maximized state, Maximizer saves dimensions an
 
 [MIT &copy; Wuelner Martínez.](https://github.com/wuelnerdotexe/human.vim/blob/main/LICENSE)
 
-<p align="center">¡Con 💖 de <strong>Latinoamérica</strong> para el mundo!</p>
+<p align="center">With 💖 from <strong>LATAM</strong> to the world!</p>

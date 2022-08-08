@@ -61,7 +61,7 @@ if has('nvim')
 endif
 
 " Help symbols.
-set list listchars=trail:-,extends:>,precedes:<
+set list listchars=trail:·,extends:>,precedes:<
 
 " Pair symbols.
 set showmatch matchpairs=(:),{:},[:],<:>
@@ -77,7 +77,7 @@ endif
 
 " Languages.
 autocmd FileType json setlocal filetype=jsonc
-autocmd FileType css,scss,sass,less setlocal iskeyword+=-,@-@
+autocmd FileType css,scss,sass,less setlocal iskeyword+=$,-,@-@
 " }}}
 " User interface: {{{
 " Titlebar.
@@ -102,7 +102,7 @@ endif
 set nonumber relativenumber numberwidth=2
 
 " Lines position.
-set cursorline nocursorcolumn
+set nocursorline nocursorcolumn
 
 " Last line.
 set history=50
