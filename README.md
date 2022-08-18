@@ -1,6 +1,6 @@
 # Vim for Humans
 
-> Name inspired by the song of my favorite band [The Killers](https://open.spotify.com/playlist/5NG4GhpKm6kQy3vtVt4nxs?si=307ea3da0bee4841).
+> Name inspired by the [song](https://open.spotify.com/track/1sTsuZTdANkiFd7T34H3nb?si=b231c228a346487c) of my favorite band [The Killers](https://open.spotify.com/playlist/5NG4GhpKm6kQy3vtVt4nxs?si=b30370b24e1646c3).
 
 Collection of Vim default options for humans.
 
@@ -8,11 +8,12 @@ Features:
 
 - Default options for Vim to be your friend.
 - Key mappings to interact with buffers.
-- *The text is highlighted when it has been yanked.
+- Key mapping to clear the highlight search.
+- `*`The text is highlighted when it has been yanked.
 - The following plugins are included:
   - Maximizer: maximizes and restores the current window.
 
-**Note:** features with '*' only available for [Neovim](https://github.com/neovim/neovim).
+**Note:** features with `*` only available for [Neovim](https://github.com/neovim/neovim).
 
 ## Installation
 
@@ -30,13 +31,19 @@ To use this plugin you just have to install it, and you will start to notice sma
 
 ### Options.
 
-If you need to change the value of an option contained in this plugin, you must do so after loading the plugin in your `VIMRC` file or in a separate file in the `after/plugin/` folder, if you do it before, your options will be rewritten. Learn about the options in the `plugin/human.vim` source code.
+To see the many options contained in this plugin, look directly at the source code in the `plugin/human.vim` directory, where all the options are nicely organized.
+
+**if you need to change the value of an option** contained in this plugin, **you must do so after loading the plugin**; for which you will need to create an automatic command `autocmd VimEnter * set {option}` in your `VIMRC` file, or normally rewrite `set {option}` your options to a file in the `after /plugin/` directory.
+
+**Warning**: Otherwise, your options value will be changed to **Vim for Humans**.
 
 ### Mappings
 
 **Vim for Humans** creates key mappings to navigate between buffers, following the same **Vim philosophy** for navigating between tabs. **Why not** include it by default!
 
-The "smart" mappings are:
+In addition, a key mapping `CTRL + L` in normal mode is also included to hide the highlight as a result of having the `hlsearch` option enabled when performing a search. This mapping is created only for Vim, because in Neovim it is already included by default.
+
+The "smart" mappings for buffers are:
 
 #### Normal mode
 

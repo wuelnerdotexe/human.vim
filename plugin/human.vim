@@ -61,7 +61,7 @@ if has('nvim')
 endif
 
 " Help symbols.
-set list listchars=trail:·,extends:>,precedes:<
+set list listchars=trail:·,extends:>,precedes:< listchars+=tab:\ \ 
 
 " Pair symbols.
 set showmatch matchpairs=(:),{:},[:],<:>
@@ -71,7 +71,7 @@ set emoji
 
 " Formatting.
 set nojoinspaces
-if v:version > 703 || v:version == 703 && has("patch541")
+if v:version > 703 || (v:version == 703 && has("patch541"))
   set formatoptions=tcjnp
 endif
 
@@ -121,8 +121,13 @@ set wildignore+=**/.git,**/.svn,**/.hg,**/CVS,**/.DS_store
 set wildignore+=**/node_modules,**/bower_components,**/.vscode
 set wildignorecase
 
-" Status & tabline.
-set laststatus=2 showtabline=2
+" Status & tab line.
+if has('nvim') && (v:version > 700 || (v:version == 700 && has('patch1270')))
+  set laststatus=3
+else
+  set laststatus=2
+endif
+set showtabline=2
 
 " Popups and Windows.
 set pumwidth=15 pumheight=15 cmdwinheight=15
@@ -172,13 +177,14 @@ if has('mouse')
   endif
 endif
 
-" Scrolling (set to 3 for consistency).
+" Scrolling.
+" Set all to 3 lines/characters for consistency with native |pum| menu.
 set scroll=0
 set scrolloff=3
 set scrolljump=0
 set sidescroll=1
 set sidescrolloff=4
-if has('nvim')
+if has('nvim') && (v:version > 800 || (v:version == 800 && has('patch573')))
   set mousescroll=ver:3,hor:4
 endif
 

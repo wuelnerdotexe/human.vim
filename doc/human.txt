@@ -7,6 +7,18 @@ small changes in Vim that will make more sense.
 
 1. Options                                                    *human-options*
 
+To see the many options contained in this plugin, look directly at the source
+code in the `plugin/human.vim` directory, where all the options are nicely
+organized.
+
+If you need to change the value of an option contained in this plugin, you
+must do so after loading the plugin; for which you will need to create an
+automatic command `autocmd VimEnter * set {option}` in your `VIMRC` file, or
+normally rewrite `set {option}` your options to a file in the
+`after /plugin/` directory.
+
+Warning: Otherwise, your options value will be changed to Vim for Humans.
+
 If you need to change the value of an option contained in this plugin, you
 must do so after loading the plugin in your `VIMRC` file or in a separate
 file in the `after/plugin/` folder, if you do it before, your options will
@@ -19,7 +31,12 @@ be rewritten. Learn about the options in the `plugin/human.vim` source code.
 Vim for Humans creates key mappings to navigate between buffers, following
 the same Vim philosophy for navigating between tabs.
 
-The "smart" mappings are:
+In addition, a key mapping `CTRL + L` in normal mode is also included to hide
+the highlight as a result of having the `hlsearch` option enabled when
+performing a search. This mapping is created only for Vim, because in Neovim
+it is already included by default.
+
+The "smart" mappings for buffers are:
 
 2.1. Normal mode
 
