@@ -71,7 +71,7 @@ set emoji
 
 " Formatting.
 set nojoinspaces
-if v:version > 703 || (v:version == 703 && has("patch541"))
+if v:version > 703 || v:version == 703 && has("patch541")
   set formatoptions=tcjnp
 endif
 
@@ -122,7 +122,7 @@ set wildignore+=**/node_modules,**/bower_components,**/.vscode
 set wildignorecase
 
 " Status & tab line.
-if has('nvim') && (v:version > 700 || (v:version == 700 && has('patch1270')))
+if has('nvim') && v:version > 700
   set laststatus=3
 else
   set laststatus=2
@@ -184,7 +184,7 @@ set scrolloff=3
 set scrolljump=0
 set sidescroll=1
 set sidescrolloff=4
-if has('nvim') && (v:version > 800 || (v:version == 800 && has('patch573')))
+if has('nvim') && v:version > 800
   set mousescroll=ver:3,hor:4
 endif
 
