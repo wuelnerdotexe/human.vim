@@ -224,7 +224,7 @@ if !has('nvim') && maparg('<C-L>', 'n') ==# ''
 endif
 
 " Use <Esc> in the terminal to use normal Vim mode, not normal $SHELL mode.
-tnoremap <Esc> <C-\><C-n>
+tnoremap <expr> <Esc> (&filetype == 'fzf') ? '<Esc>' : '<c-\><c-n>'
 " -----------------------------------------------------------------------------
 " SECTION: Plugins.
 " -----------------------------------------------------------------------------
