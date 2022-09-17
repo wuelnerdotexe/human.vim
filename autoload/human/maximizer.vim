@@ -7,33 +7,41 @@
 " About:    Maximizes and restores the current window.
 " -----------------------------------------------------------------------------
 
-function! human#maximizer#enable() abort
+function! s:Enable() abort
   let t:maximizer_sizes = { 'before': winrestcmd() }
-  resize | vert resize
+
+  resize
+  vertical resize
+
   let t:maximizer_sizes.after = winrestcmd()
+
   if &buftype != 'terminal'
     normal! ze
   endif
 endfunction
 
-function! human#maximizer#restore() abort
+function! s:Restore() abort
   if exists('t:maximizer_sizes')
     silent! execute t:maximizer_sizes.before
+
     if t:maximizer_sizes.before != winrestcmd()
       wincmd =
     endif
+
     unlet t:maximizer_sizes
+
     if &buftype != 'terminal'
       normal! ze
     endif
   endif
 endfunction
 
-function! human#maximizer#toggle() abort
+function! human#maximizer#Toggle() abort
   if exists('t:maximizer_sizes') &&
         \ t:maximizer_sizes.after == winrestcmd()
-    call human#maximizer#restore()
+    call <SID>Restore()
   elseif winnr('$') > 1
-    call human#maximizer#enable()
+    call <SID>Enable()
   endif
 endfunction
+

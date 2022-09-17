@@ -53,28 +53,60 @@ The "smart" mappings for buffers are:
 3. Plugins                                                    *human-plugins*
 
 It also includes minimalistic and modernized plugins with on-demand functions
-to further enhance the human experience. It seems that these plugins are no
-longer maintained by their author, so I've included them here.
+to further enhance the human experience.
 
 The plugins included are:
 
-3.1. Maximizer
+3.1. BufOnly
 
-Maximizer lets you maximize split windows and restore them automatically.
-It is very useful if you like to have many split windows per tab.
+BufOnly allows you to clear all buffers except the one you are in. This is an
+oddly useful feature that Vim provides for tabs and windows, but not for
+buffers.
 
-Maximizer has only one command:
+BufOnly has only one command:
+
+`:BufOnly`
+
+Which you can map to your favorite map, for example:
+
+`nmap <leader>bo <Plug>(BufOnly)`
+
+In addition, BufOnly allows to exclude buffers by filetype, so as not to
+delete those that are not files, for example:
+
+`let g:bufonly_exclude_filetypes = [ 'fern', 'nerdterm' ]`
+
+3.2. Maximizer
+
+Maximizer allows you to maximize and restore the size of the current window
+you are in.
+
+The command for Maximizer is:
 
 `:MaximizerToggle`
 
 Which you can map to your favorite map, for example:
 
 `nmap <leader>mt <Plug>(MaximizerToggle)`
-`nmap! <leader>mt <Plug>(MaximizerToggle)`
 
-When the current window is not in maximized state, Maximizer saves dimensions
-and positions of all windows in the current tab, and then it performs
-maximization of the active window. The second time the command is invoked,
-Maximizer restores all windows to the previously saved positions.
+3.3. Resizer
+
+Resizer allows you to resize the current split window, but in a visually more
+logical way, because the direction in which you resize is respected, as
+opposed to Vim's very gimmicky native mappings.
+
+The Resizer commands are:
+
+`:ResizerLeft`
+`:ResizerDown`
+`:ResizerUp`
+`:ResizerRight`
+
+Which you can map to your favorite map, for example:
+
+`nmap <C-h> <Plug>(ResizerLeft)`
+`nmap <C-j> <Plug>(ResizerDown)`
+`nmap <C-k> <Plug>(ResizerUp)`
+`nmap <C-l> <Plug>(ResizerRight)`
 
 vim:textwidth=78:tabstop=8:filetype=help:

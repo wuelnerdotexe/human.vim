@@ -9,9 +9,12 @@ Features:
 - Default options for Vim to be your friend.
 - Key mappings to interact with buffers.
 - Key mapping to clear the highlight search.
+- Better indenting with `>` and `<` keys.
 - `*`The text is highlighted when it has been yanked.
-- The following plugins are included:
+- The following plugins are included to make you a ninja with buffers and windows:
+  - BufOnly: delete all buffers except the current.
   - Maximizer: maximizes and restores the current window.
+  - Resizer: resize the current split window.
 
 **Note:** features with `*` only available for [Neovim](https://github.com/neovim/neovim).
 
@@ -57,15 +60,37 @@ The "smart" mappings for buffers are:
 
 ### Plugins
 
-It also includes **minimalistic** and **modernized** plugins with **on-demand functions** to further enhance the human experience. It seems that these plugins are no longer maintained by their author, so I've included them here.
+It also includes **minimalistic** and **modernized** plugins with **on-demand functions** to further enhance the human experience.
 
 The plugins included are:
 
+#### BufOnly
+
+BufOnly allows you to clear all buffers except the one you are in. This is an oddly useful feature that Vim provides for tabs and windows, but not for buffers.
+
+BufOnly has only one command:
+
+```vim
+:BufOnly
+```
+
+Which you can map to your favorite map, for example:
+
+```vim
+nmap <leader>bo <Plug>(BufOnly)
+```
+
+In addition, BufOnly allows to exclude buffers by filetype, so as not to delete those that are not files, for example:
+
+```vim
+let g:bufonly_exclude_filetypes = [ 'fern', 'nerdterm' ]
+```
+
 #### Maximizer
 
-Maximizer lets you maximize split windows and restore them automatically. It is very useful if you like to have many split windows per tab.
+Maximizer allows you to maximize and restore the size of the current window you are in.
 
-Maximizer has only one command:
+The command for Maximizer is:
 
 ```vim
 :MaximizerToggle
@@ -75,10 +100,29 @@ Which you can map to your favorite map, for example:
 
 ```vim
 nmap <leader>mt <Plug>(MaximizerToggle)
-nmap! <leader>mt <Plug>(MaximizerToggle)
 ```
 
-When the current window is not in maximized state, Maximizer saves dimensions and positions of all windows in the current tab, and then it performs maximization of the active window. The second time the command is invoked, Maximizer restores all windows to the previously saved positions.
+#### Resizer
+
+Resizer allows you to resize the current split window, but in a visually more logical way, because the direction in which you resize is respected, as opposed to Vim's very gimmicky native mappings.
+
+The Resizer commands are:
+
+```vim
+:ResizerLeft
+:ResizerDown
+:ResizerUp
+:ResizerRight
+```
+
+Which you can map to your favorite map, for example:
+
+```vim
+nmap <C-h> <Plug>(ResizerLeft)
+nmap <C-j> <Plug>(ResizerDown)
+nmap <C-k> <Plug>(ResizerUp)
+nmap <C-l> <Plug>(ResizerRight)
+```
 
 ## Maintainer
 
@@ -86,7 +130,9 @@ When the current window is not in maximized state, Maximizer saves dimensions an
 
 ## Credits
 
+- Plugin [BufOnly.vim](https://github.com/vim-scripts/BufOnly.vim) by. Christian J. Robinson.
 - Plugin [vim-maximizer](https://github.com/szw/vim-maximizer) by. [Szymon Wrozynski](https://github.com/szw) and [Contributors](https://github.com/szw/vim-maximizer/commits/master).
+- Plugin [winresizer](https://github.com/simeji/winresizer) by. [Simeji](https://github.com/simeji) and [Contributors](https://github.com/simeji/winresizer/commits/master).
 
 ## License
 

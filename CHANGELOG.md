@@ -4,6 +4,30 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.7.0] - 2022-09-17
+
+### Added
+
+- Constant indentation is added with minor and major keys.
+- The last cursor position is remembered when entering a file.
+- Undo files are activated.
+
+The following plugins have been added to make `human.vim` a "Swiss Army Knife" of buffers and windows:
+
+  - BufferOnly an optimized port of [BufOnly.vim](https://github.com/vim-scripts/BufOnly.vim)
+  - Resizer an minimal port of [winresizer](https://github.com/simeji/winresizer)
+
+### Fixed
+
+- Many improvements, bug fixes and optimizations are made.
+
+## [1.6.0] - 2022-09-07
+
+### Added
+
+- Added functionality to jump to the last remembered cursor position in Vim and Neovim.
+- More improvements are added to option validations.
+
 ## [1.5.2] - 2022-09-04
 
 ### Fixed
