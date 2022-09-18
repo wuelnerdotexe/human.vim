@@ -18,6 +18,11 @@ Features:
 
 **Note:** features with `*` only available for [Neovim](https://github.com/neovim/neovim).
 
+## Requirements
+
+- [Vim](https://www.vim.org/) >= 8.0
+- [Neovim](https://neovim.io/) >= v0.7.0
+
 ## Installation
 
 Install via your preferred package manager. Example using [vim-plug](https://github.com/junegunn/vim-plug):

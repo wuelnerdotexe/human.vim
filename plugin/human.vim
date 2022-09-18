@@ -77,21 +77,13 @@ autocmd FileType css,scss,sass,less setlocal iskeyword+=$,-,@-@
 " User interface: {{{
 " Titlebar.
 set title
-if has('nvim')
-  set titlestring=Neovim\ for\ Humans
-else
-  set titlestring=Vim\ for\ Humans
-endif
+let &titlestring = has('nvim') ? 'Neovim for Humans' : 'Vim for Humans'
 
 " Colors.
 set t_Co=256 termguicolors background=dark
 
 " Signcolumn display.
-if has('nvim')
-  set signcolumn=yes:1
-else
-  set signcolumn=yes
-endif
+let &signcolumn = has('nvim') ? 'yes:1' : 'yes'
 
 " Line numbers.
 set nonumber relativenumber numberwidth=2
@@ -112,16 +104,12 @@ set shortmess=mrxoOtTIF
 set wildmenu
 set wildoptions=pum,tagfile
 set nofileignorecase
-set wildignore+=**/.git,**/.svn,**/.hg,**/CVS,**/.DS_store
-set wildignore+=**/node_modules,**/bower_components,**/.vscode
+set wildignore=**/.git,**/.svn,**/.hg,**/CVS,**/.DS_store,**/Thumbs.db
+set wildignore+=**/node_modules,**/bower_components,**/*.code-search
 set wildignorecase
 
 " Status & tab line.
-if has('nvim')
-  set laststatus=3
-else
-  set laststatus=2
-endif
+let &laststatus = has('nvim') ? 3 : 2
 set showtabline=2
 
 " Popups and Windows.
@@ -142,15 +130,16 @@ endif
 
 " Jump better to last cursor position.
 autocmd BufReadPost *
-      \ if &filetype !~# 'commit\|rebase' &&
-      \ line("'\"") > 1 && line("'\"") <= line("$") |
+      \ if &filetype !~# 'commit\|rebase'
+      \ && line("'\"") > 1
+      \ && line("'\"") <= line("$") |
       \   execute 'normal! g`"' |
       \ endif
 
 " Mappings.
 set ttimeout
 set ttimeoutlen=50
-if has('langmap') && exists('+langremap')| set nolangremap | endif
+if has('langmap') && exists('+langremap') | set nolangremap | endif
 
 " Autocomplete.
 set completeopt=menuone,noselect
@@ -165,28 +154,24 @@ set ignorecase nosmartcase
 
 " Yanked text.
 if has('nvim')
-  " Highlight text copied to clipboard (yanked) for 1 second.
-  autocmd TextYankPost * silent! lua vim.highlight.on_yank {timeout=1000}
+  " Highlight text copied to clipboard (yanked) for 250 milliseconds.
+  autocmd TextYankPost * silent! lua vim.highlight.on_yank {timeout=250}
 endif
 
 " Mouse.
 if has('mouse')
-  if &term =~ 'xterm'
-    set mouse=a
-  else
-    set mouse=nvi
-  endif
+  let &mouse = &term !=# 'xterm' ? 'a' : 'nvi'
 endif
 
 " Scrolling.
-" Set all to 3 lines/characters for consistency with
-" Vim native |pum| menu and integrated Resizer.vim plugin.
 set scroll=0
 set scrolloff=3
 set scrolljump=0
 set sidescroll=1
 set sidescrolloff=4
 if has('nvim') && has('nvim-0.8') | set mousescroll=ver:3,hor:4 | endif
+" Important: Set all to 3 lines/characters for consistency with
+"            Vim native |pum| menu and integrated Resizer.vim plugin.
 
 " Splits.
 set nowinfixheight
@@ -201,12 +186,9 @@ set clipboard+=unnamedplus
 set backspace=indent,eol,start
 set nostartofline
 set whichwrap=<,>,h,l
+
 " Performance.
-if !has('nvim')
-  set updatetime=100
-else
-  set updatetime=1000
-endif
+set updatetime=250
 set redrawtime=1500 nolazyredraw ttyfast
 " }}}
 " -----------------------------------------------------------------------------
