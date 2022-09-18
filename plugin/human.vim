@@ -98,7 +98,7 @@ set showcmd
 set showmode
 set ruler
 set confirm
-set shortmess=mrxoOtTIF
+set shortmess=mrxoOtTF
 
 " Wildmenu.
 set wildmenu
