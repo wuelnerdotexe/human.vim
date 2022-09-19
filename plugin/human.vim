@@ -71,8 +71,9 @@ elseif v:version > 703
 endif
 
 " Languages.
-autocmd FileType json setlocal filetype=jsonc
 autocmd FileType css,scss,sass,less setlocal iskeyword+=$,-,@-@
+autocmd FileType json setfiletype jsonc
+autocmd BufNewFile,BufRead *.mdx setfiletype markdown.mdx
 " }}}
 " User interface: {{{
 " Titlebar.
