@@ -161,7 +161,7 @@ endif
 
 " Mouse.
 if has('mouse')
-  let &mouse = &term !=# 'xterm' ? 'a' : 'nvi'
+  let &mouse = &term =~ 'xterm' ? 'a' : 'nvi'
 endif
 
 " Scrolling.
@@ -216,6 +216,12 @@ tmap <expr> <Esc> (&filetype == 'fzf') ? '<Esc>' : '<c-\><c-n>'
 " Better indenting.
 vmap <silent> < <gv
 vmap <silent> > >gv
+
+" Remap for dealing with word wrap.
+nmap <expr><silent> k (v:count == 0) ? 'gk' : 'k'
+nmap <expr><silent> j (v:count == 0) ? 'gj' : 'j'
+nmap <expr><silent> <Up> (v:count == 0) ? 'g<Up>' : '<Up>'
+nmap <expr><silent> <Down> (v:count == 0) ? 'g<Down>' : '<Down>'
 " -----------------------------------------------------------------------------
 " SECTION: Plugins.
 " -----------------------------------------------------------------------------
