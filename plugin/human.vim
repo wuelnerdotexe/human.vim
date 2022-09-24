@@ -219,9 +219,13 @@ vmap <silent> > >gv
 
 " Remap for dealing with word wrap.
 nmap <expr><silent> k (v:count == 0) ? 'gk' : 'k'
+xmap <expr><silent> k (v:count == 0) ? 'gk' : 'k'
 nmap <expr><silent> j (v:count == 0) ? 'gj' : 'j'
+xmap <expr><silent> j (v:count == 0) ? 'gj' : 'j'
 nmap <expr><silent> <Up> (v:count == 0) ? 'g<Up>' : '<Up>'
+xmap <expr><silent> <Up> (v:count == 0) ? 'g<Up>' : '<Up>'
 nmap <expr><silent> <Down> (v:count == 0) ? 'g<Down>' : '<Down>'
+xmap <expr><silent> <Down> (v:count == 0) ? 'g<Down>' : '<Down>'
 " -----------------------------------------------------------------------------
 " SECTION: Plugins.
 " -----------------------------------------------------------------------------
