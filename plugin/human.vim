@@ -1,7 +1,7 @@
 " vim: fileencoding=utf-8 tabstop=2 shiftwidth=2 foldlevel=0 foldmethod=marker:
 " -----------------------------------------------------------------------------
 " Name:     human.vim
-" Author:   Christian J. Robinson <infynity@onewest.net>
+" Author:   Wuelner Martínez <wuelner.martinez@outlook.com>
 " URL:      https://github.com/wuelnerdotexe/human.vim
 " License:  Copyright (C) Wuelner Martínez.
 " About:    Collection of vim default options for humans.
@@ -160,7 +160,7 @@ if has('nvim')
 endif
 
 " Mouse.
-if has('mouse')
+if has('mouse') && has('nvim')
   let &mouse = &term =~ 'xterm' ? 'a' : 'nvi'
 endif
 

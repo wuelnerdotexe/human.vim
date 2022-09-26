@@ -83,7 +83,7 @@ BufOnly has only one command:
 Which you can map to your favorite map, for example:
 
 ```vim
-nmap <leader>bo <Plug>(BufOnly)
+nmap 1b <Plug>(BufOnly)
 ```
 
 In addition, BufOnly allows to exclude buffers by filetype, so as not to delete those that are not files, for example:
@@ -105,7 +105,7 @@ The command for Maximizer is:
 Which you can map to your favorite map, for example:
 
 ```vim
-nmap <leader>mt <Plug>(MaximizerToggle)
+nmap mt <Plug>(MaximizerToggle)
 ```
 
 #### Resizer
@@ -124,10 +124,10 @@ The Resizer commands are:
 Which you can map to your favorite map, for example:
 
 ```vim
-nmap <C-h> <Plug>(ResizerLeft)
-nmap <C-j> <Plug>(ResizerDown)
-nmap <C-k> <Plug>(ResizerUp)
-nmap <C-l> <Plug>(ResizerRight)
+nmap <A-Left> <Plug>(ResizerLeft)
+nmap <A-Down> <Plug>(ResizerDown)
+nmap <A-Up> <Plug>(ResizerUp)
+nmap <A-Right> <Plug>(ResizerRight)
 ```
 
 ## Maintainer
