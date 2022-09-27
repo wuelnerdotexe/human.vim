@@ -50,7 +50,7 @@ set concealcursor=c conceallevel=2
 set autoindent shiftround breakindent
 
 " Wrapping.
-set wrap textwidth=80 display=lastline
+set wrap display=lastline
 if has('nvim') | set display+=msgsep | endif
 
 " Help symbols.
@@ -139,7 +139,7 @@ autocmd BufReadPost *
 
 " Mappings.
 set ttimeout
-set ttimeoutlen=50
+set ttimeoutlen=40
 if has('langmap') && exists('+langremap') | set nolangremap | endif
 
 " Autocomplete.
@@ -155,8 +155,13 @@ set ignorecase nosmartcase
 
 " Yanked text.
 if has('nvim')
-  " Highlight text copied to clipboard (yanked) for 250 milliseconds.
-  autocmd TextYankPost * silent! lua vim.highlight.on_yank {timeout=250}
+  " Create highlight group for intuitive text yanked.
+  highlight default TextYanked cterm=reverse gui=reverse
+
+  " Highlight text yanked (copy) for 600 milliseconds.
+  autocmd TextYankPost * silent! lua vim.highlight.on_yank({
+        \   higroup='TextYanked', timeout=125
+        \ })
 endif
 
 " Mouse.
@@ -189,8 +194,9 @@ set nostartofline
 set whichwrap=<,>,h,l
 
 " Performance.
-set updatetime=250
-set redrawtime=1500 nolazyredraw ttyfast
+set updatetime=40
+set lazyredraw
+if !has('nvim') | set ttyfast | endif
 " }}}
 " -----------------------------------------------------------------------------
 " SECTION: Mappings.
