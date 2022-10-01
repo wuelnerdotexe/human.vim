@@ -87,7 +87,7 @@ The command for Maximizer is:
 
 Which you can map to your favorite map, for example:
 
-`nmap mt <Plug>(MaximizerToggle)`
+`nmap <C-w>m <Plug>(MaximizerToggle)`
 
 3.3. Resizer
 

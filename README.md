@@ -105,7 +105,7 @@ The command for Maximizer is:
 Which you can map to your favorite map, for example:
 
 ```vim
-nmap mt <Plug>(MaximizerToggle)
+nmap <C-w>m <Plug>(MaximizerToggle)
 ```
 
 #### Resizer

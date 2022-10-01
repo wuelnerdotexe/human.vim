@@ -38,7 +38,7 @@ set viewoptions-=options
 " }}}
 " Code display: {{{
 " Syntax.
-set synmaxcol=220
+set synmaxcol=200
 
 " Character encoding.
 set encoding=utf-8
@@ -118,7 +118,7 @@ set pumwidth=15 pumheight=15 cmdwinheight=15
 
 " Terminal
 if has('nvim')
-  autocmd TermOpen * setl scl=no nospell nornu noru nocul cc= lcs-=trail
+  autocmd TermOpen * setl scl=no nospell nornu nonu noru nocul cc= nolist
 endif
 " }}}
 " Interaction and performance: {{{
