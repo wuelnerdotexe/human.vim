@@ -104,9 +104,9 @@ The Resizer commands are:
 
 Which you can map to your favorite map, for example:
 
-`nmap <A-Left> <Plug>(ResizerLeft)`
-`nmap <A-Down> <Plug>(ResizerDown)`
-`nmap <A-Up> <Plug>(ResizerUp)`
-`nmap <A-Right> <Plug>(ResizerRight)`
+`nmap <A-h> <Plug>(ResizerLeft)`
+`nmap <A-j> <Plug>(ResizerDown)`
+`nmap <A-k> <Plug>(ResizerUp)`
+`nmap <A-l> <Plug>(ResizerRight)`
 
 vim:textwidth=78:tabstop=8:filetype=help:

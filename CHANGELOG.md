@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.7.0] - 2022-09-24
+## [1.7.0] - 2022-10-10
 
 ### Added
 
@@ -12,6 +12,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Constant indentation is added with minor and major keys.
 - The last cursor position is remembered when entering a file.
 - Add keymaps for better navigation with wrapping.
+- Set ripgrep to vimgrep.
 - Undo files are activated.
 
 The following plugins have been added to make `human.vim` a "Swiss Army Knife" of buffers and windows:

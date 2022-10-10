@@ -47,7 +47,11 @@ set encoding=utf-8
 set concealcursor=c conceallevel=2
 
 " Indentation.
-set autoindent shiftround breakindent
+set autoindent
+set copyindent
+set preserveindent
+set shiftround
+set breakindent
 
 " Wrapping.
 set wrap display=lastline
@@ -81,6 +85,14 @@ set title
 let &titlestring = has('nvim') ? 'Neovim for Humans' : 'Vim for Humans'
 
 " Colors.
+if !has('nvim')
+  " Enable termguicolors in Vim with tmux.
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+  " [...] For Undercurls.
+  let &t_Cs = "\e[4:3m"
+  let &t_Ce = "\e[4:0m"
+endif
 set t_Co=256 termguicolors background=dark
 
 " Signcolumn display.
@@ -116,9 +128,15 @@ set showtabline=2
 " Popups and Windows.
 set pumwidth=15 pumheight=15 cmdwinheight=15
 
+" Stabilize.
+if !has('nvim') | set nosplitscroll | endif
+if v:version >= 900 && has('patch667') | set splitkeep=screen | endif
+
 " Terminal
 if has('nvim')
-  autocmd TermOpen * setl scl=no nospell nornu nonu noru nocul cc= nolist
+  autocmd TermOpen *
+        \ setlocal nospell noru nornu nonu nocul cc= scl=no |
+        \ startinsert!
 endif
 " }}}
 " Interaction and performance: {{{
@@ -153,6 +171,14 @@ set hlsearch
 if has('reltime') | set incsearch | endif
 set ignorecase nosmartcase
 
+" Grepping.
+if executable('rg') == 1
+  let &grepprg = 'rg -i -. -g="'.
+        \   '!.git,!.svn,!.hg,!CSV,!.DS_Store,!Thumbs.db'.
+        \   '!node_modules,!bower_components,!*.code-search'.
+        \ '" --vimgrep'
+endif
+
 " Yanked text.
 if has('nvim')
   " Create highlight group for intuitive text yanked.
@@ -175,7 +201,7 @@ set scrolloff=3
 set scrolljump=0
 set sidescroll=1
 set sidescrolloff=4
-if has('nvim') && has('nvim-0.8') | set mousescroll=ver:3,hor:4 | endif
+if !has('nvim') | set nosplitscroll | endif
 " Important: Set all to 3 lines/characters for consistency with
 "            Vim native |pum| menu and integrated Resizer.vim plugin.
 
@@ -194,9 +220,7 @@ set nostartofline
 set whichwrap=<,>,h,l
 
 " Performance.
-set updatetime=40
-set lazyredraw
-if !has('nvim') | set ttyfast | endif
+set updatetime=40 lazyredraw ttyfast
 " }}}
 " -----------------------------------------------------------------------------
 " SECTION: Mappings.
@@ -211,9 +235,10 @@ nmap <silent> gb <Cmd>bnext<CR>
 nmap <silent> <S-PageDown> <Cmd>bnext<CR>
 imap <silent> <S-PageDown> <Cmd>bnext<CR>
 
-" Use <C-L> to clear the highlighting of :set hlsearch.
-if !has('nvim') && maparg('<C-L>', 'n') ==# ''
-  nmap <silent> <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
+" Use <C-l> to clear the highlighting of :set hlsearch.
+if !has('nvim') && maparg('<C-l>', 'n') ==# ''
+  nmap <silent> <C-l>
+        \ :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-l>
 endif
 
 " Use <Esc> in the terminal to use normal Vim mode, not normal $SHELL mode.
@@ -225,13 +250,11 @@ vmap <silent> > >gv
 
 " Remap for dealing with word wrap.
 nmap <expr><silent> k (v:count == 0) ? 'gk' : 'k'
-xmap <expr><silent> k (v:count == 0) ? 'gk' : 'k'
+vmap <expr><silent> k (v:count == 0) ? 'gk' : 'k'
 nmap <expr><silent> j (v:count == 0) ? 'gj' : 'j'
-xmap <expr><silent> j (v:count == 0) ? 'gj' : 'j'
-nmap <expr><silent> <Up> (v:count == 0) ? 'g<Up>' : '<Up>'
-xmap <expr><silent> <Up> (v:count == 0) ? 'g<Up>' : '<Up>'
-nmap <expr><silent> <Down> (v:count == 0) ? 'g<Down>' : '<Down>'
-xmap <expr><silent> <Down> (v:count == 0) ? 'g<Down>' : '<Down>'
+vmap <expr><silent> j (v:count == 0) ? 'gj' : 'j'
+map <expr><silent> <Up> (v:count == 0) ? 'g<Up>' : '<Up>'
+map <expr><silent> <Down> (v:count == 0) ? 'g<Down>' : '<Down>'
 " -----------------------------------------------------------------------------
 " SECTION: Plugins.
 " -----------------------------------------------------------------------------

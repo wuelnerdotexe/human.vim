@@ -24,6 +24,10 @@ Features:
 - [Vim](https://www.vim.org/) >= 8.0
 - [Neovim](https://neovim.io/) >= v0.7.0
 
+### Dependencies
+
+- [Ripgrep](https://github.com/BurntSushi/ripgrep) (optional)
+
 ## Installation
 
 Install via your preferred package manager. Example using [vim-plug](https://github.com/junegunn/vim-plug):
@@ -89,7 +93,7 @@ nmap 1b <Plug>(BufOnly)
 In addition, BufOnly allows to exclude buffers by filetype, so as not to delete those that are not files, for example:
 
 ```vim
-let g:bufonly_exclude_filetypes = [ 'fern', 'nerdterm' ]
+let g:bufonly_exclude_filetypes = [ 'aerial', 'fern', 'nerdterm' ]
 ```
 
 #### Maximizer
@@ -124,10 +128,10 @@ The Resizer commands are:
 Which you can map to your favorite map, for example:
 
 ```vim
-nmap <A-Left> <Plug>(ResizerLeft)
-nmap <A-Down> <Plug>(ResizerDown)
-nmap <A-Up> <Plug>(ResizerUp)
-nmap <A-Right> <Plug>(ResizerRight)
+nmap <A-h> <Plug>(ResizerLeft)
+nmap <A-j> <Plug>(ResizerDown)
+nmap <A-k> <Plug>(ResizerUp)
+nmap <A-l> <Plug>(ResizerRight)
 ```
 
 ## Maintainer
