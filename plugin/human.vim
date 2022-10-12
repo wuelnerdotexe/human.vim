@@ -129,8 +129,17 @@ set showtabline=2
 set pumwidth=15 pumheight=15 cmdwinheight=15
 
 " Stabilize.
-if !has('nvim') | set nosplitscroll | endif
-if v:version >= 900 && has('patch667') | set splitkeep=screen | endif
+if has('nvim')
+lua <<EOF
+  if vim.version().minor >= 9 and vim.fn.has('patch667') then
+    vim.opt.splitkeep = 'screen'
+  end
+EOF
+elseif v:version >= 900 && has('patch667')
+  set nosplitscroll splitkeep=screen
+else
+  set nosplitscroll
+endif
 
 " Terminal
 if has('nvim')
@@ -158,7 +167,7 @@ autocmd BufReadPost *
 " Mappings.
 set ttimeout
 set ttimeoutlen=40
-if has('langmap') && exists('+langremap') | set nolangremap | endif
+set nolangremap
 
 " Autocomplete.
 set completeopt=menuone,noselect
@@ -168,7 +177,7 @@ if has('nvim') | set inccommand=nosplit | endif
 
 " Searching.
 set hlsearch
-if has('reltime') | set incsearch | endif
+set incsearch
 set ignorecase nosmartcase
 
 " Grepping.
@@ -191,9 +200,7 @@ if has('nvim')
 endif
 
 " Mouse.
-if has('mouse') && has('nvim')
-  let &mouse = &term =~ 'xterm' ? 'a' : 'nvi'
-endif
+if has('nvim') | let &mouse = &term =~ 'xterm' ? 'a' : 'nvi' | endif
 
 " Scrolling.
 set scroll=0
