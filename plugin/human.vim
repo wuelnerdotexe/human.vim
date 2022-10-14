@@ -126,7 +126,7 @@ let &laststatus = has('nvim') ? 3 : 2
 set showtabline=2
 
 " Popups and Windows.
-set pumwidth=15 pumheight=15 cmdwinheight=15
+set pumwidth=15 pumheight=7 cmdwinheight=7
 
 " Stabilize.
 if has('nvim')
@@ -136,9 +136,7 @@ lua <<EOF
   end
 EOF
 elseif v:version >= 900 && has('patch667')
-  set nosplitscroll splitkeep=screen
-else
-  set nosplitscroll
+  set splitkeep=screen
 endif
 
 " Terminal
@@ -208,7 +206,6 @@ set scrolloff=3
 set scrolljump=0
 set sidescroll=1
 set sidescrolloff=4
-if !has('nvim') | set nosplitscroll | endif
 " Important: Set all to 3 lines/characters for consistency with
 "            Vim native |pum| menu and integrated Resizer.vim plugin.
 
@@ -244,7 +241,7 @@ imap <silent> <S-PageDown> <Cmd>bnext<CR>
 
 " Use <C-l> to clear the highlighting of :set hlsearch.
 if !has('nvim') && maparg('<C-l>', 'n') ==# ''
-  nmap <silent> <C-l>
+  nnoremap <silent> <C-l>
         \ :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-l>
 endif
 
