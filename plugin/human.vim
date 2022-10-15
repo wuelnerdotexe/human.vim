@@ -99,7 +99,7 @@ set t_Co=256 termguicolors background=dark
 let &signcolumn = has('nvim') ? 'yes:1' : 'yes'
 
 " Line numbers.
-set nonumber relativenumber numberwidth=2
+set nonumber relativenumber numberwidth=4
 
 " Lines position.
 set nocursorline nocursorcolumn
@@ -126,7 +126,7 @@ let &laststatus = has('nvim') ? 3 : 2
 set showtabline=2
 
 " Popups and Windows.
-set pumwidth=15 pumheight=7 cmdwinheight=7
+set pumwidth=14 pumheight=7 cmdwinheight=7
 
 " Stabilize.
 if has('nvim')
