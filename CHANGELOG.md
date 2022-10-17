@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.7.3] - 2022-10-17
+
+### Fixed
+
+- Entering auto insert mode in terminal is disabled due to bugs in [nvim-dap](https://github.com/mfussenegger/nvim-dap).
+
 ## [1.7.2] - 2022-10-14
 
 ### Fixed

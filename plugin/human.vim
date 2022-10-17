@@ -141,9 +141,7 @@ endif
 
 " Terminal
 if has('nvim')
-  autocmd TermOpen *
-        \ setlocal nospell noru nornu nonu nocul cc= scl=no |
-        \ startinsert!
+  autocmd TermOpen * setlocal nospell noru nornu nonu nocul cc= scl=no
 endif
 " }}}
 " Interaction and performance: {{{
