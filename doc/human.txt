@@ -1,4 +1,4 @@
-*human.txt* Collection of vim default options for humans.
+*human.txt* Collection of vim default options for humans
 
 To use this plugin you just have to install it, and you will start to notice
 small changes in Vim that will make more sense.
@@ -71,10 +71,15 @@ Which you can map to your favorite map, for example:
 
 `nmap 1b <Plug>(BufOnly)`
 
-In addition, BufOnly allows to exclude buffers by filetype, so as not to
-delete those that are not files, for example:
 
-`let g:bufonly_exclude_filetypes = [ 'fern', 'nerdterm' ]`
+In addition, BufOnly allows to exclude buffers by buftypes and filetypes, so
+as not to delete those that are not files, for example:
+
+`" Exclude buftypes for BufOnly command.`
+`let g:bufonly_exclude_buftypes = [ 'terminal' ]`
+
+`" Exclude filetypes for BufOnly command.`
+`let g:bufonly_exclude_filetypes = [ 'aerial', 'fern' ]`
 
 3.2. Maximizer
 

@@ -142,6 +142,8 @@ endif
 " Terminal
 if has('nvim')
   autocmd TermOpen * setlocal nospell noru nornu nonu nocul cc= scl=no
+else
+  autocmd TerminalOpen * setlocal nospell noru nornu nonu nocul cc= scl=no
 endif
 " }}}
 " Interaction and performance: {{{

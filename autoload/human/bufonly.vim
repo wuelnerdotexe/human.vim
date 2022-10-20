@@ -7,28 +7,33 @@
 " About:    Delete all buffers except the current.
 " -----------------------------------------------------------------------------
 
-function! s:ExcludeFiletypes(bufnum)
-  if exists('bufonly_exclude_filetypes')
-    return index(
-          \   g:bufonly_exclude_filetypes,
-          \   getbufvar(a:bufnum, '&filetype')
-          \ ) >= 0 ? 1 : 0
-  else
-    return 0
+function! s:ExcludeBuffers(bufnum)
+  if getbufvar(a:bufnum, '&modified')
+    return 1
+  elseif exists('bufonly_exclude_buftypes') && index(
+        \   g:bufonly_exclude_buftypes,
+        \   getbufvar(a:bufnum, '&buftype')
+        \ ) >= 0
+    return 1
+  elseif exists('bufonly_exclude_filetypes') && index(
+        \   g:bufonly_exclude_filetypes,
+        \   getbufvar(a:bufnum, '&filetype')
+        \ ) >= 0
+    return 1
   endif
+
+  return 0
 endfunction
 
 function! human#bufonly#Run() abort
   let l:buffer = bufnr('%')
   let l:last_buffer = bufnr('$')
-
-  let l:count = 1
   let l:delete_count = 0
+  let l:count = 1
 
   while l:count <= l:last_buffer
-    if l:count != l:buffer
-          \ && !<SID>ExcludeFiletypes(l:count)
-          \ && buflisted(l:count)
+    if l:count != l:buffer && buflisted(l:count)
+          \ && !<SID>ExcludeBuffers(l:count)
       silent execute l:count . 'bwipe'
 
       if !buflisted(l:count)

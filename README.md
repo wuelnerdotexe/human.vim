@@ -90,10 +90,14 @@ Which you can map to your favorite map, for example:
 nmap 1b <Plug>(BufOnly)
 ```
 
-In addition, BufOnly allows to exclude buffers by filetype, so as not to delete those that are not files, for example:
+In addition, BufOnly allows to exclude buffers by buftypes and filetypes, so as not to delete those that are not files, for example:
 
 ```vim
-let g:bufonly_exclude_filetypes = [ 'aerial', 'fern', 'nerdterm' ]
+" Exclude buftypes for BufOnly command.
+let g:bufonly_exclude_buftypes = [ 'terminal' ]
+
+" Exclude filetypes for BufOnly command.
+let g:bufonly_exclude_filetypes = [ 'aerial', 'fern' ]
 ```
 
 #### Maximizer
