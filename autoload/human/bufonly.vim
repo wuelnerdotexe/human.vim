@@ -26,15 +26,13 @@ function! s:ExcludeBuffers(bufnum)
 endfunction
 
 function! human#bufonly#Run() abort
-  let l:buffer = bufnr('%')
-  let l:last_buffer = bufnr('$')
-  let l:delete_count = 0
   let l:count = 1
+  let l:delete_count = 0
 
-  while l:count <= l:last_buffer
-    if l:count != l:buffer && buflisted(l:count)
+  while l:count <= bufnr('$')
+    if l:count != bufnr('%') && buflisted(l:count)
           \ && !<SID>ExcludeBuffers(l:count)
-      silent execute l:count . 'bwipe'
+      silent execute l:count . 'bwipeout!'
 
       if !buflisted(l:count)
         let l:delete_count = l:delete_count + 1
