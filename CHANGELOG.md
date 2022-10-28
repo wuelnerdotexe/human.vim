@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.8.1] - 2022-10-27
+
+### Fixed
+
+- Removed the `lazyredraw` option because it conflicts with the [noice.nvim](https://github.com/folke/noice.nvim) plugin.
+
 ## [1.8.0] - 2022-10-20
 
 ### Added

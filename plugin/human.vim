@@ -224,7 +224,7 @@ set nostartofline
 set whichwrap=<,>,h,l
 
 " Performance.
-set updatetime=40 lazyredraw ttyfast
+set updatetime=40 ttyfast
 " }}}
 " -----------------------------------------------------------------------------
 " SECTION: Mappings.
