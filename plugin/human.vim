@@ -86,12 +86,18 @@ let &titlestring = has('nvim') ? 'Neovim for Humans' : 'Vim for Humans'
 
 " Colors.
 if !has('nvim')
-  " Enable termguicolors in Vim with tmux.
-  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-  " [...] For Undercurls.
+  " Enable tmux support for undercurls.
   let &t_Cs = "\e[4:3m"
   let &t_Ce = "\e[4:0m"
+
+  " Enable tmux support for underdoubles.
+  let &t_Us = "\e[4:2m"
+  let &t_ds = "\e[4:4m"
+  let &t_Ds = "\e[4:5m"
+
+  " Enable tmux support for 256 colors.
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 endif
 set t_Co=256 termguicolors background=dark
 
