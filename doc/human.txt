@@ -65,7 +65,7 @@ buffers.
 
 BufOnly has only one command:
 
-`:BufOnly`
+`BufOnly`
 
 Which you can map to your favorite map, for example:
 
@@ -88,7 +88,7 @@ you are in.
 
 The command for Maximizer is:
 
-`:MaximizerToggle`
+`MaximizerToggle`
 
 Which you can map to your favorite map, for example:
 
@@ -102,10 +102,10 @@ opposed to Vim's very gimmicky native mappings.
 
 The Resizer commands are:
 
-`:ResizerLeft`
-`:ResizerDown`
-`:ResizerUp`
-`:ResizerRight`
+`ResizerLeft`
+`ResizerDown`
+`ResizerUp`
+`ResizerRight`
 
 Which you can map to your favorite map, for example:
 

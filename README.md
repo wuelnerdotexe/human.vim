@@ -81,7 +81,7 @@ BufOnly allows you to clear all buffers except the one you are in. This is an od
 BufOnly has only one command:
 
 ```vim
-:BufOnly
+BufOnly
 ```
 
 Which you can map to your favorite map, for example:
@@ -107,7 +107,7 @@ Maximizer allows you to maximize and restore the size of the current window you 
 The command for Maximizer is:
 
 ```vim
-:MaximizerToggle
+MaximizerToggle
 ```
 
 Which you can map to your favorite map, for example:
@@ -123,10 +123,19 @@ Resizer allows you to resize the current split window, but in a visually more lo
 The Resizer commands are:
 
 ```vim
-:ResizerLeft
-:ResizerDown
-:ResizerUp
-:ResizerRight
+ResizerDown
+```
+
+```vim
+ResizerLeft
+```
+
+```vim
+ResizerUp
+```
+
+```vim
+ResizerRight
 ```
 
 Which you can map to your favorite map, for example:
