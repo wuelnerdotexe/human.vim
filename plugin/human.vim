@@ -12,7 +12,6 @@ if &compatible | finish | endif
 
 " Necessary variables are initialized.
 let s:hasNvim = has('nvim') ? 1 : 0
-let s:version = v:version
 
 " Because we are humans.
 set spell spelllang=en
@@ -74,7 +73,7 @@ set emoji
 set nojoinspaces
 if s:hasNvim
   set formatoptions=tcjnp
-elseif s:version > 703
+elseif v:version > 703
   set formatoptions=tcjnp
 endif
 
@@ -145,7 +144,7 @@ lua <<EOF
     vim.opt.splitkeep = 'screen'
   end
 EOF
-elseif s:version >= 900 && has('patch667')
+elseif v:version >= 900 && has('patch667')
   set splitkeep=screen
 endif
 
