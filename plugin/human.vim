@@ -11,7 +11,7 @@
 if &compatible | finish | endif
 
 " Necessary variables are initialized.
-let s:hasNvim = has('nvim') ? 1 : 0
+let s:nvim = has('nvim') ? 1 : 0
 
 " Because we are humans.
 set spell spelllang=en
@@ -23,7 +23,7 @@ set noautochdir
 set nofsync
 set noswapfile
 set undofile
-if !s:hasNvim | set undodir=~/.vim/undo// | endif
+if !s:nvim | set undodir=~/.vim/undo// | endif
 set nowritebackup
 set nobackup
 
@@ -58,7 +58,7 @@ set breakindent
 
 " Wrapping.
 set wrap display=lastline
-if s:hasNvim | set display+=msgsep | endif
+if s:nvim | set display+=msgsep | endif
 
 " Help symbols.
 set list listchars=trail:·,extends:>,precedes:< listchars+=tab:\ \ 
@@ -71,9 +71,7 @@ set emoji
 
 " Formatting.
 set nojoinspaces
-if s:hasNvim
-  set formatoptions=tcjnp
-elseif v:version > 703
+if s:nvim || (!s:nvim && v:version > 703)
   set formatoptions=tcjnp
 endif
 
@@ -85,10 +83,10 @@ autocmd BufNewFile,BufRead *.mdx setfiletype markdown.mdx
 " User interface: {{{
 " Titlebar.
 set title
-let &titlestring = s:hasNvim ? 'Neovim for Humans' : 'Vim for Humans'
+let &titlestring = s:nvim ? 'Neovim for Humans' : 'Vim for Humans'
 
 " Colors.
-if !s:hasNvim
+if !s:nvim
   " Enable tmux support for undercurls.
   let &t_Cs = "\e[4:3m"
   let &t_Ce = "\e[4:0m"
@@ -105,7 +103,7 @@ endif
 set t_Co=256 termguicolors background=dark
 
 " Signcolumn display.
-let &signcolumn = s:hasNvim ? 'yes:1' : 'yes'
+let &signcolumn = s:nvim ? 'yes:1' : 'yes'
 
 " Line numbers.
 set nonumber relativenumber numberwidth=4
@@ -131,20 +129,16 @@ set wildignore+=**/node_modules,**/bower_components,**/*.code-search
 set wildignorecase
 
 " Status & tab line.
-let &laststatus = s:hasNvim ? 3 : 2
+let &laststatus = s:nvim ? 3 : 2
 set showtabline=2
 
 " Popups and Windows.
 set pumwidth=14 pumheight=7 cmdwinheight=7
 
 " Stabilize.
-if s:hasNvim
-lua <<EOF
-  if vim.version().minor >= 9 and vim.fn.has('patch667') then
-    vim.opt.splitkeep = 'screen'
-  end
-EOF
-elseif v:version >= 900 && has('patch667')
+let s:patch667 = has('patch667') ? 1 : 0
+if (has('nvim-0.9') && s:patch667) ||
+      \ (!s:nvim && v:version >= 900 && s:patch667)
   set splitkeep=screen
 endif
 
@@ -152,15 +146,13 @@ endif
 autocmd FileType qf call human#nofileOptions()
 
 " Terminal
-if s:hasNvim
+if s:nvim
   autocmd TermOpen * call human#nofileOptions()
-else
-  autocmd TerminalOpen * call human#nofileOptions()
 endif
 " }}}
 " Interaction and performance: {{{
 " Disable Vim au last cursor position.
-if !s:hasNvim
+if !s:nvim
   augroup vimStartup
     execute 'au!'
   augroup END
@@ -174,6 +166,17 @@ autocmd BufReadPost *
       \   execute 'normal! g`"' |
       \ endif
 
+" Automatically reload file if changed somewhere else
+if !s:nvim
+  redir => capture
+    silent autocmd FocusGained
+  redir END
+
+  if match(capture, 'checktime') == -1
+    autocmd FocusGained * silent! checktime
+  endif
+endif
+
 " Mappings.
 set ttimeout
 set ttimeoutlen=40
@@ -183,7 +186,7 @@ set nolangremap
 set completeopt=menuone,noselect
 
 " Live commands.
-if s:hasNvim | set inccommand=nosplit | endif
+if s:nvim | set inccommand=nosplit | endif
 
 " Searching.
 set hlsearch
@@ -199,18 +202,18 @@ if executable('rg') == 1
 endif
 
 " Yanked text.
-if s:hasNvim
+if s:nvim
   " Create highlight group for intuitive text yanked.
   highlight default TextYanked cterm=reverse gui=reverse
 
-  " Highlight text yanked (copy) for 600 milliseconds.
+  " Highlight text yanked (copy) for 125 milliseconds.
   autocmd TextYankPost * silent! lua vim.highlight.on_yank({
         \   higroup='TextYanked', timeout=125
         \ })
 endif
 
 " Mouse.
-if s:hasNvim | let &mouse = &term =~ 'xterm' ? 'a' : 'nvi' | endif
+if s:nvim | let &mouse = &term =~ 'xterm' ? 'a' : 'nvi' | endif
 
 " Scrolling.
 set scroll=0
@@ -252,9 +255,9 @@ nmap <silent> <S-PageDown> <Cmd>bnext<CR>
 imap <silent> <S-PageDown> <Cmd>bnext<CR>
 
 " Use <C-l> to clear the highlighting of :set hlsearch.
-if !s:hasNvim && maparg('<C-l>', 'n') ==# ''
+if !s:nvim && maparg('<C-l>', 'n') ==# ''
   nnoremap <silent> <C-l>
-        \ :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-l>
+        \ :nohlsearch<C-R>=has('diff') ? '<Bar>diffupdate' : ''<CR><CR><C-l>
 endif
 
 " Use <Esc> in the terminal to use normal Vim mode, not normal $SHELL mode.
