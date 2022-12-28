@@ -20,12 +20,12 @@ set spell spelllang=en
 set noautochdir
 
 " File backups.
-set nofsync
+set nobackup
+set nowritebackup
 set noswapfile
+set nofsync
 set undofile
 if !s:nvim | set undodir=~/.vim/undo// | endif
-set nowritebackup
-set nobackup
 
 " File auto-read.
 set autoread
@@ -68,6 +68,9 @@ set showmatch matchpairs=(:),{:},[:],<:>
 
 " Enable emojis.
 set emoji
+
+" Folding.
+set foldlevelstart=99
 
 " Formatting.
 set nojoinspaces
@@ -123,10 +126,10 @@ set shortmess=mrxoOtTF
 " Wildmenu.
 set wildmenu
 set wildoptions=pum,tagfile
-set nofileignorecase
 set wildignore=**/.git,**/.svn,**/.hg,**/CVS,**/.DS_store,**/Thumbs.db
 set wildignore+=**/node_modules,**/bower_components,**/*.code-search
 set wildignorecase
+set nofileignorecase
 
 " Status & tab line.
 let &laststatus = s:nvim ? 3 : 2
@@ -178,9 +181,7 @@ if !s:nvim
 endif
 
 " Mappings.
-set ttimeout
-set ttimeoutlen=40
-set nolangremap
+set ttimeout ttimeoutlen=40 nolangremap
 
 " Autocomplete.
 set completeopt=menuone,noselect
@@ -191,7 +192,8 @@ if s:nvim | set inccommand=nosplit | endif
 " Searching.
 set hlsearch
 set incsearch
-set ignorecase nosmartcase
+set nosmartcase
+set ignorecase
 
 " Grepping.
 if executable('rg') == 1
