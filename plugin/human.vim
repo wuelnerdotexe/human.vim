@@ -145,9 +145,6 @@ if (has('nvim-0.9') && s:patch667) ||
   set splitkeep=screen
 endif
 
-" QuickFix.
-autocmd FileType qf call human#nofileOptions()
-
 " Terminal
 if s:nvim
   autocmd TermOpen * call human#nofileOptions()
