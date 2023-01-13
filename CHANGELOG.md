@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.12.0] - 2023-01-13
+
+### Added
+
+- Various options are optimized and enhanced.
+
+### Changed
+
+- The loading of the options for `qf` is optimized.
+
+### Removed
+
+- Removed languages options.
+
 ## [1.11.0] - 2022-12-27
 
 ### Added
