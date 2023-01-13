@@ -77,11 +77,6 @@ set nojoinspaces
 if s:nvim || (!s:nvim && v:version > 703)
   set formatoptions=tcjnp
 endif
-
-" Languages.
-autocmd FileType css,scss,sass,less setlocal iskeyword+=$,-,@-@
-autocmd FileType json setfiletype jsonc
-autocmd BufNewFile,BufRead *.mdx setfiletype markdown.mdx
 " }}}
 " User interface: {{{
 " Titlebar.

@@ -11,7 +11,6 @@ Features:
 - Better indenting with `>` and `<` keys.
 - `*`The text is highlighted when it has been yanked.
 - Key mapping to clear the highlight search.
-- Minor `json`, `css`, and `mdx` language improvements.
 - The following plugins are included to make you a ninja with buffers and windows:
   - BufOnly: delete all buffers except the current.
   - Maximizer: maximizes and restores the current window.
