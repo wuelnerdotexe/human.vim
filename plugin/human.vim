@@ -34,10 +34,11 @@ set autoread
 set hidden
 
 " Session fixes.
-set sessionoptions-=options
+let &sessionoptions = 'blank,buffers,help,localoptions,'.
+      \ 'resize,winpos,winsize,folds,tabpages,curdir,terminal'
 
 " View fixes.
-set viewoptions-=options
+set viewoptions=localoptions,folds,cursor,curdir
 " }}}
 " Code display: {{{
 " Syntax.
@@ -121,8 +122,8 @@ set shortmess=mrxoOtTF
 " Wildmenu.
 set wildmenu
 set wildoptions=pum,tagfile
-set wildignore=**/.git,**/.svn,**/.hg,**/CVS,**/.DS_store,**/Thumbs.db
-set wildignore+=**/node_modules,**/bower_components,**/*.code-search
+let &wildignore = '**/.git,**/.svn,**/.hg,**/CVS,**/.DS_store,**/Thumbs.db,'.
+      \ '**/node_modules,**/bower_components,**/*.code-search'
 set wildignorecase
 set nofileignorecase
 
@@ -134,9 +135,8 @@ set showtabline=2
 set pumwidth=14 pumheight=7 cmdwinheight=7
 
 " Stabilize.
-let s:patch667 = has('patch667') ? 1 : 0
-if (has('nvim-0.9') && s:patch667) ||
-      \ (!s:nvim && v:version >= 900 && s:patch667)
+if has('nvim-0.9') ||
+      \ (v:version >= 900 && has('patch667'))
   set splitkeep=screen
 endif
 
@@ -207,18 +207,24 @@ if s:nvim
 endif
 
 " Mouse.
-if s:nvim | let &mouse = &term =~ 'xterm' ? 'a' : 'nvi' | endif
+if s:nvim
+  let &mouse = &term =~ 'xterm' ? 'a' : 'nvi'
+  set mousescroll=ver:1,hor:1
+endif
 
 " Scrolling.
-set scroll=0
 set scrolloff=3
-set scrolljump=0
+set scrolljump=1
 set sidescroll=1
 set sidescrolloff=4
 " Important: Set all to 3 lines/characters for consistency with
 "            Vim native |pum| menu and integrated Resizer.vim plugin.
 
 " Splits.
+set winheight=7
+set winwidth=7
+set winminheight=7
+set winminwidth=7
 set nowinfixheight
 set nowinfixwidth
 set splitright
@@ -227,7 +233,7 @@ set equalalways
 set eadirection=both
 
 " Text editing.
-set clipboard+=unnamedplus
+set clipboard=unnamed,unnamedplus
 set backspace=indent,eol,start
 set nostartofline
 set whichwrap=<,>,h,l
