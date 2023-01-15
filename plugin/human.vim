@@ -35,7 +35,7 @@ set hidden
 
 " Session fixes.
 let &sessionoptions = 'blank,buffers,help,localoptions,'.
-      \ 'resize,winpos,winsize,folds,tabpages,curdir,terminal'
+      \ 'winpos,winsize,folds,tabpages,curdir,terminal'
 
 " View fixes.
 set viewoptions=localoptions,folds,cursor,curdir
