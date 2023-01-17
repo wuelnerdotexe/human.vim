@@ -233,7 +233,7 @@ set equalalways
 set eadirection=both
 
 " Text editing.
-set clipboard=unnamed,unnamedplus
+set clipboard=unnamedplus
 set backspace=indent,eol,start
 set nostartofline
 set whichwrap=<,>,h,l
