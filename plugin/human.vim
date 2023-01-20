@@ -173,7 +173,11 @@ if !s:nvim
 endif
 
 " Mappings.
-set ttimeout ttimeoutlen=40 nolangremap
+set timeout
+set ttimeout
+set timeoutlen=600
+set ttimeoutlen=40
+set nolangremap
 
 " Autocomplete.
 set completeopt=menuone,noselect
