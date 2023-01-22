@@ -163,13 +163,7 @@ autocmd BufReadPost *
 
 " Automatically reload file if changed somewhere else
 if !s:nvim
-  redir => capture
-    silent autocmd FocusGained
-  redir END
-
-  if match(capture, 'checktime') == -1
-    autocmd FocusGained * silent! checktime
-  endif
+  autocmd FocusGained * silent! checktime
 endif
 
 " Mappings.
@@ -235,6 +229,9 @@ set splitright
 set splitbelow
 set equalalways
 set eadirection=both
+
+" Resize splits if window got resized.
+autocmd VimResized * tabdo wincmd =
 
 " Text editing.
 set clipboard=unnamedplus
