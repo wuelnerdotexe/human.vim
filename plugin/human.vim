@@ -245,15 +245,14 @@ set updatetime=40 ttyfast
 " -----------------------------------------------------------------------------
 " SECTION: Mappings.
 " -----------------------------------------------------------------------------
-" Move previous/left with buffers.
-nmap <silent> gB <Cmd>bprev<CR>
-nmap <silent> <S-PageUp> <Cmd>bprev<CR>
-imap <silent> <S-PageUp> <Cmd>bprev<CR>
+" Set <LocalLeader> to <underscore> for avoid clash with <Leader>.
+if !exists("maplocalleader") | let maplocalleader = "_" | endif
 
-" Move next/right with buffers.
-nmap <silent> gb <Cmd>bnext<CR>
-nmap <silent> <S-PageDown> <Cmd>bnext<CR>
-imap <silent> <S-PageDown> <Cmd>bnext<CR>
+" Toggle some options that are useful on-demand.
+nmap _l <Cmd>setlocal cursorline! cursorline?<CR>
+nmap _c <Cmd>setlocal cursorcolumn! cursorcolumn?<CR>
+nmap _s <Cmd>setlocal spell! spell?<CR>
+nmap _w <Cmd>setlocal wrap! wrap?<CR>
 
 " Use <C-l> to clear the highlighting of :set hlsearch.
 if !s:nvim && maparg('<C-l>', 'n') ==# ''
@@ -261,20 +260,30 @@ if !s:nvim && maparg('<C-l>', 'n') ==# ''
         \ :nohlsearch<C-R>=has('diff') ? '<Bar>diffupdate' : ''<CR><CR><C-l>
 endif
 
-" Use <Esc> in the terminal to use normal Vim mode, not normal $SHELL mode.
-tmap <expr> <Esc> (&filetype == 'fzf') ? '<Esc>' : '<c-\><c-n>'
+" Move next/right with buffers.
+nmap <silent> gb <Cmd>bnext<CR>
+nmap <silent> <S-PageDown> <Cmd>bnext<CR>
+imap <silent> <S-PageDown> <Cmd>bnext<CR>
+
+" Move previous/left with buffers.
+nmap <silent> gB <Cmd>bprev<CR>
+nmap <silent> <S-PageUp> <Cmd>bprev<CR>
+imap <silent> <S-PageUp> <Cmd>bprev<CR>
 
 " Better indenting.
-vmap <silent> < <gv
 vmap <silent> > >gv
+vmap <silent> < <gv
 
 " Remap for dealing with word wrap.
-nmap <expr><silent> k (v:count == 0) ? 'gk' : 'k'
-vmap <expr><silent> k (v:count == 0) ? 'gk' : 'k'
-nmap <expr><silent> j (v:count == 0) ? 'gj' : 'j'
-vmap <expr><silent> j (v:count == 0) ? 'gj' : 'j'
-map <expr><silent> <Up> (v:count == 0) ? 'g<Up>' : '<Up>'
 map <expr><silent> <Down> (v:count == 0) ? 'g<Down>' : '<Down>'
+map <expr><silent> <Up> (v:count == 0) ? 'g<Up>' : '<Up>'
+nmap <expr><silent> j (v:count == 0) ? 'gj' : 'j'
+nmap <expr><silent> k (v:count == 0) ? 'gk' : 'k'
+vmap <expr><silent> j (v:count == 0) ? 'gj' : 'j'
+vmap <expr><silent> k (v:count == 0) ? 'gk' : 'k'
+
+" Use <Esc> in terminal mode for use normal Vim mode, not normal $SHELL mode.
+tmap <expr> <Esc> (&filetype == 'fzf') ? '<Esc>' : '<c-\><c-n>'
 " -----------------------------------------------------------------------------
 " SECTION: Plugins.
 " -----------------------------------------------------------------------------

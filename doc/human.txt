@@ -14,39 +14,45 @@ organized.
 If you need to change the value of an option contained in this plugin, you
 must do so after loading the plugin; for which you will need to create an
 automatic command `autocmd VimEnter * set {option}` in your `VIMRC` file, or
-normally rewrite `set {option}` your options to a file in the
-`after /plugin/` directory.
+normally rewrite your options to a file in the
+`after/plugin/` directory.
 
 Warning: Otherwise, your options value will be changed to Vim for Humans.
-
-If you need to change the value of an option contained in this plugin, you
-must do so after loading the plugin in your `VIMRC` file or in a separate
-file in the `after/plugin/` folder, if you do it before, your options will
-be rewritten. Learn about the options in the `plugin/human.vim` source code.
 
 =============================================================================
 
 2. Mappings                                                  *human-mappings*
 
-Vim for Humans creates key mappings to navigate between buffers, following
-the same Vim philosophy for navigating between tabs.
+2.1. Options toggle
+
+Vim for Humans creates the following key mappings to toggle some Vim options
+that are useful on-demand but not all the time.
+
+| VI Mode |        Keymap        | Description                  |
+| :-----: | :------------------: | ---------------------------- |
+| Normal  | `<underscore>` + `l` | Toggle `cursorline` option   |
+| Normal  | `<underscore>` + `c` | Toggle `cursorcolumn` option |
+| Normal  | `<underscore>` + `s` | Toggle `spell` option        |
+| Normal  | `<underscore>` + `w` | Toggle `wrap` option         |
 
 In addition, a key mapping `CTRL + L` in normal mode is also included to hide
 the highlight as a result of having the `hlsearch` option enabled when
 performing a search. This mapping is created only for Vim, because in Neovim
 it is already included by default.
 
+2.2. Buffers navigation
+
+Also, creates key mappings to navigate between buffers, following the same
+Vim philosophy for navigating between tabs.
+
 The "smart" mappings for buffers are:
 
-2.1. Normal mode
-
-- Use `gB` for previous buffer.
-- Use `gb` for next buffer.
-
-2.2. Insert and visual mode
-
-- Use `Shift + Page Down` for previous buffer.
-- Use `Shift + Page Up` for next buffer.
+| VI Mode |        Keymap         | Description               |
+| :-----: | :-------------------: | ------------------------- |
+| Normal  |       `g` + `B`       | Go to the previous buffer |
+| Insert  |  `SHIFT` + `PAGE UP`  | Go to the previous buffer |
+| Normal  |       `g` + `b`       | Go to the next buffer     |
+| Insert  | `SHIFT` + `PAGE DOWN` | Go to the next buffer     |
 
 =============================================================================
 
