@@ -169,8 +169,8 @@ endif
 " Mappings.
 set timeout
 set ttimeout
-set timeoutlen=600
-set ttimeoutlen=40
+set timeoutlen=568
+set ttimeoutlen=42
 set nolangremap
 
 " Autocomplete.
@@ -240,7 +240,7 @@ set nostartofline
 set whichwrap=<,>,h,l
 
 " Performance.
-set updatetime=40 ttyfast
+set updatetime=42 ttyfast
 " }}}
 " -----------------------------------------------------------------------------
 " SECTION: Mappings.
