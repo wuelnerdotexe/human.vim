@@ -14,7 +14,7 @@ if &compatible | finish | endif
 let s:nvim = has('nvim') ? 1 : 0
 
 " Because we are humans.
-set spell spelllang=en
+set nospell spelllang=en
 " Files and backups: {{{
 " File navigation.
 set noautochdir
@@ -58,11 +58,12 @@ set shiftround
 set breakindent
 
 " Wrapping.
-set wrap display=lastline
+set nowrap display=lastline
 if s:nvim | set display+=msgsep | endif
 
 " Help symbols.
 set list listchars=trail:·,extends:>,precedes:< listchars+=tab:\ \ 
+set fillchars=eob:\ 
 
 " Pair symbols.
 set showmatch matchpairs=(:),{:},[:],<:>
@@ -105,7 +106,7 @@ set t_Co=256 termguicolors background=dark
 let &signcolumn = s:nvim ? 'yes:1' : 'yes'
 
 " Line numbers.
-set nonumber relativenumber numberwidth=4
+set number norelativenumber numberwidth=4
 
 " Lines position.
 set nocursorline nocursorcolumn
@@ -128,8 +129,13 @@ set wildignorecase
 set nofileignorecase
 
 " Status & tab line.
-let &laststatus = s:nvim ? 3 : 2
-set showtabline=2
+let &laststatus = s:nvim ? 0 : 2
+set showtabline=1
+
+" Winbar.
+if s:nvim
+  set winbar=%t\ %m
+endif
 
 " Popups and Windows.
 set pumwidth=14 pumheight=7 cmdwinheight=7
