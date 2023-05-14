@@ -66,7 +66,7 @@ set list listchars=trail:·,extends:>,precedes:< listchars+=tab:\ \
 set fillchars=eob:\ 
 
 " Pair symbols.
-set showmatch matchpairs=(:),{:},[:],<:>
+set showmatch matchtime=4 matchpairs=(:),{:},[:],<:>
 
 " Enable emojis.
 set emoji
@@ -146,28 +146,31 @@ if has('nvim-0.9') ||
   set splitkeep=screen
 endif
 
-" Terminal
+" Terminal.
 if s:nvim
   autocmd TermOpen * call human#nofileOptions()
 endif
+
+" Menus.
+if s:nvim
+  aunmenu PopUp.How-to\ disable\ mouse
+endif
 " }}}
 " Interaction and performance: {{{
-" Disable Vim au last cursor position.
-if !s:nvim
-  augroup vimStartup
-    execute 'au!'
-  augroup END
-endif
-
 " Jump better to last cursor position.
-autocmd BufReadPost *
-      \ if &filetype !~# 'commit\|rebase'
-      \ && line("'\"") > 1
-      \ && line("'\"") <= line("$") |
-      \   execute 'normal! g`"' |
-      \ endif
+augroup vimStartup
+  autocmd!
+  autocmd BufReadPost *
+        \ if &filetype !~# 'commit\|rebase'
+        \ && line("'\"") > 1
+        \ && line("'\"") <= line("$") |
+        \   execute 'normal! g`"' |
+        \
+        \   if foldclosed("'\"") != 1 | execute 'normal! zvzz' | endif |
+        \ endif
+augroup END
 
-" Automatically reload file if changed somewhere else
+" Automatically reload file if changed somewhere else.
 if !s:nvim
   autocmd FocusGained * silent! checktime
 endif
@@ -178,6 +181,9 @@ set ttimeout
 set timeoutlen=568
 set ttimeoutlen=42
 set nolangremap
+
+" Add close mappings to help and man filetypes.
+autocmd FileType help,man nmap <buffer> q <Cmd>close<CR>
 
 " Autocomplete.
 set completeopt=menuone,noselect
@@ -205,7 +211,7 @@ if s:nvim
   highlight default TextYanked cterm=reverse gui=reverse
 
   " Highlight text yanked (copy) for 125 milliseconds.
-  autocmd TextYankPost * silent! lua vim.highlight.on_yank({
+  autocmd TextYankPost * lua vim.highlight.on_yank({
         \   higroup='TextYanked', timeout=125
         \ })
 endif
@@ -260,33 +266,38 @@ nmap _c <Cmd>setlocal cursorcolumn! cursorcolumn?<CR>
 nmap _s <Cmd>setlocal spell! spell?<CR>
 nmap _w <Cmd>setlocal wrap! wrap?<CR>
 
-" Use <C-l> to clear the highlighting of :set hlsearch.
-if !s:nvim && maparg('<C-l>', 'n') ==# ''
-  nnoremap <silent> <C-l>
-        \ :nohlsearch<C-R>=has('diff') ? '<Bar>diffupdate' : ''<CR><CR><C-l>
+" Add Neovim defaults mappings to Vim.
+if !s:nvim
+	nnoremap Y y$
+	nnoremap <C-L> <Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>
+	inoremap <C-U> <C-G>u<C-U>
+	inoremap <C-W> <C-G>u<C-W>
+	xnoremap * y/\V<C-R>"<CR>
+	xnoremap # y?\V<C-R>"<CR>
+	nnoremap & :&&<CR>
 endif
 
 " Move next/right with buffers.
-nmap <silent> gb <Cmd>bnext<CR>
-nmap <silent> <S-PageDown> <Cmd>bnext<CR>
-imap <silent> <S-PageDown> <Cmd>bnext<CR>
+nmap gb <Cmd>bnext<CR>
+nmap <S-PageDown> <Cmd>bnext<CR>
+imap <S-PageDown> <Cmd>bnext<CR>
 
 " Move previous/left with buffers.
-nmap <silent> gB <Cmd>bprev<CR>
-nmap <silent> <S-PageUp> <Cmd>bprev<CR>
-imap <silent> <S-PageUp> <Cmd>bprev<CR>
+nmap gB <Cmd>bprev<CR>
+nmap <S-PageUp> <Cmd>bprev<CR>
+imap <S-PageUp> <Cmd>bprev<CR>
 
 " Better indenting.
-vmap <silent> > >gv
-vmap <silent> < <gv
+vmap > >gv
+vmap < <gv
 
 " Remap for dealing with word wrap.
-map <expr><silent> <Down> (v:count == 0) ? 'g<Down>' : '<Down>'
-map <expr><silent> <Up> (v:count == 0) ? 'g<Up>' : '<Up>'
-nmap <expr><silent> j (v:count == 0) ? 'gj' : 'j'
-nmap <expr><silent> k (v:count == 0) ? 'gk' : 'k'
-vmap <expr><silent> j (v:count == 0) ? 'gj' : 'j'
-vmap <expr><silent> k (v:count == 0) ? 'gk' : 'k'
+map <expr> <Down> (v:count == 0) ? 'g<Down>' : '<Down>'
+map <expr> <Up> (v:count == 0) ? 'g<Up>' : '<Up>'
+nmap <expr> j (v:count == 0) ? 'gj' : 'j'
+nmap <expr> k (v:count == 0) ? 'gk' : 'k'
+vmap <expr> j (v:count == 0) ? 'gj' : 'j'
+vmap <expr> k (v:count == 0) ? 'gk' : 'k'
 
 " Use <Esc> in terminal mode for use normal Vim mode, not normal $SHELL mode.
 tmap <expr> <Esc> (&filetype == 'fzf') ? '<Esc>' : '<c-\><c-n>'

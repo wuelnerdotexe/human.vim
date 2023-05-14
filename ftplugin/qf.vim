@@ -9,3 +9,6 @@
 
 call human#nofileOptions()
 
+setlocal nobuflisted
+
+nmap <buffer> q <Cmd>close<CR>

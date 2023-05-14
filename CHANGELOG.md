@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 1.16.0 - 2023-05-13
+
+### Added
+
+- Improvements are added.
+
 ## 1.15.0 - 2023-04-07
 
 ### Changed
@@ -136,8 +142,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 The following plugins have been added to make `human.vim` a "Swiss Army Knife" of buffers and windows:
 
-  - BufferOnly an optimized port of [BufOnly.vim](https://github.com/vim-scripts/BufOnly.vim)
-  - Resizer an minimal port of [winresizer](https://github.com/simeji/winresizer)
+- BufferOnly an optimized port of [BufOnly.vim](https://github.com/vim-scripts/BufOnly.vim)
+- Resizer an minimal port of [winresizer](https://github.com/simeji/winresizer)
 
 ### Fixed
 

@@ -7,8 +7,8 @@ Collection of Vim default options for humans.
 Features:
 
 - Default options for Vim to be your friend.
+- Default Neovim's native key mappings for Vim.
 - Key mappings for toggle options on-demand.
-- Key mapping to clear the highlight search.
 - Key mappings to interact with buffers.
 - Better indenting with `>` and `<` keys.
 - `*`The text is highlighted when it has been yanked.
