@@ -4,26 +4,40 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## 1.16.0 - 2023-05-13
+## [2.0.0] - 2023-05-21
+
+### Added
+
+- Neovim's default mappings.
+
+### Removed
+
+- Human plugins.
+
+### Changed
+
+- Various improvements are added.
+
+## [1.16.0] - 2023-05-13
 
 ### Added
 
 - Improvements are added.
 
-## 1.15.0 - 2023-04-07
+## [1.15.0] - 2023-04-07
 
 ### Changed
 
 - Some options are now friendlier.
 
-## 1.14.0 - 2023-02-06
+## [1.14.0] - 2023-02-06
 
 ### Added
 
 - Set the `maplocalleader` global variable to `<underscore>` for avoid clash with the `<Leader>` global key.
 - Key mappings for toggle some Vim options that are useful on-demand but not all the time are created.
 
-## 1.13.0 - 2023-01-21
+## [1.13.0] - 2023-01-21
 
 ### Added
 
@@ -57,13 +71,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 - Various options are optimized and enhanced.
 
-### Changed
-
-- The loading of the options for `qf` is optimized.
-
 ### Removed
 
 - Removed languages options.
+
+### Changed
+
+- The loading of the options for `qf` is optimized.
 
 ## [1.11.0] - 2022-12-27
 

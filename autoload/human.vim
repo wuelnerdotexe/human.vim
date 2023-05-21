@@ -7,6 +7,7 @@
 " About:    Collection of vim default options for humans.
 " -----------------------------------------------------------------------------
 
+" Options for no file buffers.
 function! human#nofileOptions() abort
   setlocal nospell
   setlocal noruler
@@ -16,4 +17,3 @@ function! human#nofileOptions() abort
   setlocal colorcolumn=
   setlocal signcolumn=no
 endfunction
-

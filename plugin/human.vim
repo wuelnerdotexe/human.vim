@@ -6,16 +6,20 @@
 " License:  Copyright (C) Wuelner Martínez.
 " About:    Collection of vim default options for humans.
 " -----------------------------------------------------------------------------
+" Init: {{{
 
-" VI mode isn´t for humans jaja.
-if &compatible | finish | endif
+if &compatible || exists('g:loaded_human') | finish | endif
 
-" Necessary variables are initialized.
+let g:loaded_human = 1
+
 let s:nvim = has('nvim') ? 1 : 0
+
+" }}}
+" Options: {{{
 
 " Because we are humans.
 set nospell spelllang=en
-" Files and backups: {{{
+
 " File navigation.
 set noautochdir
 
@@ -39,8 +43,7 @@ let &sessionoptions = 'blank,buffers,help,localoptions,'.
 
 " View fixes.
 set viewoptions=localoptions,folds,cursor,curdir
-" }}}
-" Code display: {{{
+
 " Syntax.
 set synmaxcol=200
 
@@ -76,11 +79,8 @@ set foldlevelstart=99
 
 " Formatting.
 set nojoinspaces
-if s:nvim || (!s:nvim && v:version > 703)
-  set formatoptions=tcjnp
-endif
-" }}}
-" User interface: {{{
+if s:nvim || (!s:nvim && v:version > 703) | set formatoptions=tcjnp | endif
+
 " Titlebar.
 set title
 let &titlestring = s:nvim ? 'Neovim for Humans' : 'Vim for Humans'
@@ -133,9 +133,7 @@ let &laststatus = s:nvim ? 0 : 2
 set showtabline=1
 
 " Winbar.
-if s:nvim
-  set winbar=%t\ %m
-endif
+if s:nvim | set winbar=%t\ %m | endif
 
 " Popups and Windows.
 set pumwidth=14 pumheight=7 cmdwinheight=7
@@ -155,25 +153,6 @@ endif
 if s:nvim
   aunmenu PopUp.How-to\ disable\ mouse
 endif
-" }}}
-" Interaction and performance: {{{
-" Jump better to last cursor position.
-augroup vimStartup
-  autocmd!
-  autocmd BufReadPost *
-        \ if &filetype !~# 'commit\|rebase'
-        \ && line("'\"") > 1
-        \ && line("'\"") <= line("$") |
-        \   execute 'normal! g`"' |
-        \
-        \   if foldclosed("'\"") != 1 | execute 'normal! zvzz' | endif |
-        \ endif
-augroup END
-
-" Automatically reload file if changed somewhere else.
-if !s:nvim
-  autocmd FocusGained * silent! checktime
-endif
 
 " Mappings.
 set timeout
@@ -181,9 +160,6 @@ set ttimeout
 set timeoutlen=568
 set ttimeoutlen=42
 set nolangremap
-
-" Add close mappings to help and man filetypes.
-autocmd FileType help,man nmap <buffer> q <Cmd>close<CR>
 
 " Autocomplete.
 set completeopt=menuone,noselect
@@ -203,17 +179,6 @@ if executable('rg') == 1
         \   '!.git,!.svn,!.hg,!CSV,!.DS_Store,!Thumbs.db'.
         \   '!node_modules,!bower_components,!*.code-search'.
         \ '" --vimgrep'
-endif
-
-" Yanked text.
-if s:nvim
-  " Create highlight group for intuitive text yanked.
-  highlight default TextYanked cterm=reverse gui=reverse
-
-  " Highlight text yanked (copy) for 125 milliseconds.
-  autocmd TextYankPost * lua vim.highlight.on_yank({
-        \   higroup='TextYanked', timeout=125
-        \ })
 endif
 
 " Mouse.
@@ -242,9 +207,6 @@ set splitbelow
 set equalalways
 set eadirection=both
 
-" Resize splits if window got resized.
-autocmd VimResized * tabdo wincmd =
-
 " Text editing.
 set clipboard=unnamedplus
 set backspace=indent,eol,start
@@ -253,20 +215,57 @@ set whichwrap=<,>,h,l
 
 " Performance.
 set updatetime=42 ttyfast
+
 " }}}
-" -----------------------------------------------------------------------------
-" SECTION: Mappings.
-" -----------------------------------------------------------------------------
+" Autocmds: {{{
+
+" Better Vim jump to last cursor position with open fold support.
+augroup vimStartup
+  autocmd!
+  autocmd BufReadPost *
+        \ if &filetype !~# 'commit\|rebase'
+        \ && line("'\"") >= 1
+        \ && line("'\"") <= line("$") |
+        \   execute 'normal! g`"' |
+        \
+        \   if foldclosed("'\"") != 1 | execute 'normal! zvzz' | endif |
+        \ endif
+augroup END
+
+" Equalize splits if window got resized.
+autocmd VimResized * tabdo wincmd =
+
+" Update file on if changed somewhere else.
+if !s:nvim
+  autocmd FocusGained * silent! checktime
+endif
+
+" Highlight on yanked text.
+if s:nvim
+  " Create consistency highlight group for text yanked.
+  highlight default TextYanked cterm=reverse gui=reverse
+
+  " Highlight the yanked text for 125 milliseconds.
+  autocmd TextYankPost * lua vim.highlight.on_yank({
+        \   higroup='TextYanked', timeout=125
+        \ })
+endif
+
+" }}}
+" Keymaps: {{{
+
 " Set <LocalLeader> to <underscore> for avoid clash with <Leader>.
-if !exists("maplocalleader") | let maplocalleader = "_" | endif
+if !exists("maplocalleader") | let maplocalleader = "|" | endif
 
-" Toggle some options that are useful on-demand.
-nmap _l <Cmd>setlocal cursorline! cursorline?<CR>
-nmap _c <Cmd>setlocal cursorcolumn! cursorcolumn?<CR>
-nmap _s <Cmd>setlocal spell! spell?<CR>
-nmap _w <Cmd>setlocal wrap! wrap?<CR>
+" Remappings to conveniently navigate between word wrap.
+nmap <expr> j (v:count == 0) ? 'gj' : 'j'
+nmap <expr> k (v:count == 0) ? 'gk' : 'k'
+vmap <expr> j (v:count == 0) ? 'gj' : 'j'
+vmap <expr> k (v:count == 0) ? 'gk' : 'k'
+map <expr> <Down> (v:count == 0) ? 'g<Down>' : '<Down>'
+map <expr> <Up> (v:count == 0) ? 'g<Up>' : '<Up>'
 
-" Add Neovim defaults mappings to Vim.
+" Add Neovim's default mappings to Vim because they make more sense.
 if !s:nvim
 	nnoremap Y y$
 	nnoremap <C-L> <Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>
@@ -277,58 +276,22 @@ if !s:nvim
 	nnoremap & :&&<CR>
 endif
 
-" Move next/right with buffers.
-nmap gb <Cmd>bnext<CR>
-nmap <S-PageDown> <Cmd>bnext<CR>
-imap <S-PageDown> <Cmd>bnext<CR>
-
-" Move previous/left with buffers.
-nmap gB <Cmd>bprev<CR>
-nmap <S-PageUp> <Cmd>bprev<CR>
-imap <S-PageUp> <Cmd>bprev<CR>
-
-" Better indenting.
+" More comfortable indentation.
 vmap > >gv
 vmap < <gv
 
-" Remap for dealing with word wrap.
-map <expr> <Down> (v:count == 0) ? 'g<Down>' : '<Down>'
-map <expr> <Up> (v:count == 0) ? 'g<Up>' : '<Up>'
-nmap <expr> j (v:count == 0) ? 'gj' : 'j'
-nmap <expr> k (v:count == 0) ? 'gk' : 'k'
-vmap <expr> j (v:count == 0) ? 'gj' : 'j'
-vmap <expr> k (v:count == 0) ? 'gk' : 'k'
+" Buffer navigations.
+nmap gb <Cmd>bnext<CR>
+nmap gB <Cmd>bprev<CR>
+nmap <S-PageDown> <Cmd>bnext<CR>
+nmap <S-PageUp> <Cmd>bprev<CR>
+imap <S-PageDown> <Cmd>bnext<CR>
+imap <S-PageUp> <Cmd>bprev<CR>
 
-" Use <Esc> in terminal mode for use normal Vim mode, not normal $SHELL mode.
-tmap <expr> <Esc> (&filetype == 'fzf') ? '<Esc>' : '<c-\><c-n>'
-" -----------------------------------------------------------------------------
-" SECTION: Plugins.
-" -----------------------------------------------------------------------------
-" BufOnly.vim: {{{
-" The command for BufOnly is created.
-command BufOnly call human#bufonly#Run()
+" Toggle some options that are useful on-demand.
+nmap _l <Cmd>setlocal cursorline! cursorline?<CR>
+nmap _c <Cmd>setlocal cursorcolumn! cursorcolumn?<CR>
+nmap _s <Cmd>setlocal spell! spell?<CR>
+nmap _w <Cmd>setlocal wrap! wrap?<CR>
 
-" Mapping is created to assign it to the command.
-map <Plug>(BufOnly) <Cmd>BufOnly<CR>
 " }}}
-" Maximizer.vim: {{{
-" The command for Maximizer is created.
-command MaximizerToggle call human#maximizer#Toggle()
-
-" Mappings are created to assign them to the command.
-map <Plug>(MaximizerToggle) <Cmd>MaximizerToggle<CR>
-" }}}
-" Resizer.vim: {{{
-" The commands for Resizer are created.
-command ResizerLeft call human#resizer#Run('left')
-command ResizerDown call human#resizer#Run('down')
-command ResizerUp call human#resizer#Run('up')
-command ResizerRight call human#resizer#Run('right')
-
-" Mappings are created to assign them to the command.
-map <Plug>(ResizerLeft) <Cmd>ResizerLeft<CR>
-map <Plug>(ResizerDown) <Cmd>ResizerDown<CR>
-map <Plug>(ResizerUp) <Cmd>ResizerUp<CR>
-map <Plug>(ResizerRight) <Cmd>ResizerRight<CR>
-" }}}
-
