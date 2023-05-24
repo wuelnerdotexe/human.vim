@@ -8,7 +8,7 @@
 " -----------------------------------------------------------------------------
 " Init: {{{
 
-if &compatible || exists('g:loaded_human') | finish | endif
+if exists('g:loaded_human') || &compatible | finish | endif
 
 let g:loaded_human = 1
 
@@ -114,9 +114,10 @@ set nocursorline nocursorcolumn
 " Last line.
 set history=50
 set cmdheight=1
+set cmdwinheight=7
 set showcmd
 set showmode
-set ruler
+set noruler
 set confirm
 set shortmess=mrxoOtTF
 
@@ -129,11 +130,7 @@ set wildignorecase
 set nofileignorecase
 
 " Status & tab line.
-let &laststatus = s:nvim ? 0 : 2
-set showtabline=1
-
-" Winbar.
-if s:nvim | set winbar=%t\ %m | endif
+set laststatus=2 showtabline=1
 
 " Popups and Windows.
 set pumwidth=14 pumheight=7 cmdwinheight=7
