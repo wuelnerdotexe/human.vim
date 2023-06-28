@@ -62,14 +62,15 @@ set breakindent
 
 " Wrapping.
 set nowrap display=lastline
-if s:nvim | set display+=msgsep | endif
 
 " Help symbols.
-set list listchars=trail:·,extends:>,precedes:< listchars+=tab:\ \ 
-set fillchars=eob:\ 
-
-" Pair symbols.
-set showmatch matchtime=4 matchpairs=(:),{:},[:],<:>
+set list listchars=tab:\ \ ,trail:·,nbsp:⋯,extends:…,precedes:…
+set fillchars=stl:\ ,stlnc:\ 
+if s:nvim
+  set fillchars+=wbr:\ 
+endif
+set fillchars+=horiz:─,horizup:┴,horizdown:┬,vert:│,vertleft:┤,vertright:├,verthoriz:┼
+set fillchars+=fold:·,foldopen:,foldclose:,foldsep:│,diff:─,msgsep:\ ,eob:\ ,lastline:@
 
 " Enable emojis.
 set emoji
@@ -119,7 +120,7 @@ set showcmd
 set showmode
 set noruler
 set confirm
-set shortmess=mrxoOtTF
+set shortmess-=tT
 
 " Wildmenu.
 set wildmenu
@@ -151,15 +152,23 @@ if s:nvim
   aunmenu PopUp.How-to\ disable\ mouse
 endif
 
+" Performance.
+set updatetime=300 ttyfast
+
 " Mappings.
-set timeout
 set ttimeout
-set timeoutlen=568
 set ttimeoutlen=42
+set timeout
+let &timeoutlen = &updatetime * 2
 set nolangremap
 
+" Pair symbols.
+set showmatch
+let &matchtime = float2nr(&updatetime / 100)
+set matchpairs=(:),{:},[:],<:>
+
 " Autocomplete.
-set completeopt=menuone,noselect
+set completeopt=menu,menuone,noselect
 
 " Live commands.
 if s:nvim | set inccommand=nosplit | endif
@@ -209,9 +218,6 @@ set clipboard=unnamedplus
 set backspace=indent,eol,start
 set nostartofline
 set whichwrap=<,>,h,l
-
-" Performance.
-set updatetime=42 ttyfast
 
 " }}}
 " Autocmds: {{{
