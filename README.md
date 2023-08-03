@@ -9,6 +9,7 @@ Features:
 - Default native options for Vim to be your friend.
 - Autocmds:
   - Jump to last cursor position with fold support.
+  - Automagically save and load views for all files.
   - Equalize splits if UI window got resized.
   - `#`Update file on if changed somewhere else.
   - `*`The text is highlighted when it has been yanked.

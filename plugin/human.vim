@@ -235,6 +235,10 @@ augroup vimStartup
         \ endif
 augroup END
 
+" Autosave and autoload views.
+autocmd BufWinLeave *.* mkview
+autocmd BufWinEnter *.* silent! loadview
+
 " Equalize splits if window got resized.
 autocmd VimResized * tabdo wincmd =
 
