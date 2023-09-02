@@ -204,8 +204,8 @@ set sidescrolloff=4
 " Splits.
 set winheight=7
 set winwidth=7
-set winminheight=7
-set winminwidth=7
+set winminheight=1
+set winminwidth=1
 set nowinfixheight
 set nowinfixwidth
 set splitright
