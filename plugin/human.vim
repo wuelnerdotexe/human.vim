@@ -64,7 +64,7 @@ set breakindent
 set nowrap display=lastline
 
 " Help symbols.
-set list listchars=tab:\ \ ,trail:·,nbsp:⋯,extends:…,precedes:…
+set list listchars=tab:\ \ ,trail:·,eol:↴,nbsp:⋯,extends:…,precedes:…
 set fillchars=stl:\ ,stlnc:\ 
 if s:nvim
   set fillchars+=wbr:\ 
