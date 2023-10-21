@@ -112,6 +112,9 @@ set number norelativenumber numberwidth=4
 " Lines position.
 set nocursorline nocursorcolumn
 
+" Text editing.
+set virtualedit=block
+
 " Last line.
 set history=50
 set cmdheight=1
